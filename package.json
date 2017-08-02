@@ -1,0 +1,14 @@
+{
+  "name": "openapi-filter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "openapi_optimise": "^1.0.3"
+  }
+}
