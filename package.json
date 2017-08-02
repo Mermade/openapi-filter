@@ -1,14 +1,30 @@
 {
   "name": "openapi-filter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger definitions",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Mike Ralphson",
   "license": "BSD-3-Clause",
   "dependencies": {
     "openapi_optimise": "^1.0.3"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mermade/openapi-filter.git"
+  },
+  "keywords": [
+    "openapi",
+    "openapi3",
+    "swagger",
+    "filter",
+    "internal"
+  ],
+  "bugs": {
+    "url": "https://github.com/mermade/openapi-filter/issues"
+  },
+  "homepage": "https://github.com/mermade/openapi-filter#readme"
 }
