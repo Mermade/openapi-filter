@@ -20,6 +20,7 @@
     "openapi",
     "openapi3",
     "swagger",
+    "asyncapi",
     "filter",
     "internal"
   ],
