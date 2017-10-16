@@ -1,16 +1,13 @@
 'use strict';
 
-var common = require('openapi_optimise/common.js');
-
-function clone(o){
-	return JSON.parse(JSON.stringify(o));
-}
+const recurse = require('reftools/lib/recurse.js').recurse;
+const clone = require('reftools/lib/clone.js').clone;
 
 function filter(obj,options) {
 	var src = clone(obj);
-	common.recurse(src,{},function(o,state){
-		if (o["x-internal"]) {
-			delete state.parent[state.key];
+	recurse(src,{},function(obj,key,state){
+		if (obj[key]["x-internal"]) {
+			delete obj[key];
 		}
 	});
 	return src;

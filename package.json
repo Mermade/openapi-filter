@@ -9,7 +9,8 @@
   "author": "Mike Ralphson",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "openapi_optimise": "^1.0.3"
+    "js-yaml": "^3.10.0",
+    "reftools": "^0.0.4"
   },
   "devDependencies": {},
   "repository": {
