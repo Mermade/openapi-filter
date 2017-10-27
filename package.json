@@ -10,7 +10,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "js-yaml": "^3.10.0",
-    "reftools": "^0.0.4"
+    "reftools": "^0.0.7"
   },
   "devDependencies": {},
   "repository": {
