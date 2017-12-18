@@ -6,13 +6,19 @@ Simply tag any object within the definition with an `x-internal` specification e
 
 Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI 1.x definitions.
 
-```sh
-Usage: openapi-filter {infile} [{outfile}]
+```
+Usage: openapi-filter [options] {infile} [{outfile}]
+
+Options:
+  -h, --help     Show help                                             [boolean]
+  --version      Show version number                                   [boolean]
+  -i, --inverse  output filtered elements only                         [boolean]
 ```
 
 or 
 
 ```javascript
-var openapiFilter = require('openapi-filter');
-var res = openapiFilter.filter(obj);
+let openapiFilter = require('openapi-filter');
+let options = {};
+let res = openapiFilter.filter(obj,options);
 ```
