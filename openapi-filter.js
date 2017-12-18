@@ -2,28 +2,36 @@
 
 'use strict';
 
-var fs = require('fs');
-var yaml = require('js-yaml');
-var openapiFilter = require('./index.js');
+const fs = require('fs');
+const yaml = require('js-yaml');
+const yargs = require('yargs');
+const openapiFilter = require('./index.js');
 
-if (process.argv.length>2) {
-	var s = fs.readFileSync(process.argv[2],'utf8');
-	var obj = yaml.safeLoad(s,{json:true});
-	var res = openapiFilter.filter(obj);
-	if (process.argv[2].indexOf('.json')>=0) {
-		s = JSON.stringify(res,null,2);
-	}
-	else {
-		s = yaml.safeDump(res,{lineWidth:-1});
-	}
-	if (process.argv.length>3) {
-		fs.writeFileSync(process.argv[3],s,'utf8');
-	}
-	else {
-		console.log(s);
-	}
+let argv = require('yargs')
+    .usage('Usage: openapi-filter [options] {infile} [{outfile}]')
+    .demand(1)
+    .strict()
+    .boolean('inverse')
+    .describe('inverse','output filtered elements only')
+    .alias('i','inverse')
+    .help('h')
+    .alias('h', 'help')
+    .version()
+    .argv;
+
+let s = fs.readFileSync(argv._[0],'utf8');
+let obj = yaml.safeLoad(s,{json:true});
+let res = openapiFilter.filter(obj,argv);
+if (argv._[0].indexOf('.json')>=0) {
+	s = JSON.stringify(res,null,2);
 }
 else {
-	console.log('Usage: openapi-filter {infile} [{outfile}]');
+	s = yaml.safeDump(res,{lineWidth:-1});
+}
+if (argv._.length>1) {
+	fs.writeFileSync(argv._[1],s,'utf8');
+}
+else {
+	console.log(s);
 }
 
