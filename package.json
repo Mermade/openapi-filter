@@ -1,6 +1,6 @@
 {
   "name": "openapi-filter",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger definitions",
   "main": "index.js",
   "scripts": {
