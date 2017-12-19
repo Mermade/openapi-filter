@@ -13,12 +13,15 @@ Options:
   -h, --help     Show help                                             [boolean]
   --version      Show version number                                   [boolean]
   -i, --inverse  output filtered elements only                         [boolean]
+  -t, --tags     tags to filter by             [array] [default: ["x-internal"]]
 ```
 
 or 
 
 ```javascript
 let openapiFilter = require('openapi-filter');
-let options = {};
+let options = {}; // defaults are shown
+//options.inverse = false;
+//options.tags = ['x-internal'];
 let res = openapiFilter.filter(obj,options);
 ```
