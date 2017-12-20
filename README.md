@@ -16,6 +16,10 @@ Options:
   -t, --tags     tags to filter by             [array] [default: ["x-internal"]]
 ```
 
+use `--` to separate tags from other options, i.e.:
+
+`openapi-filter --tags x-private x-hidden -- source.yaml target.yaml`
+
 or 
 
 ```javascript
