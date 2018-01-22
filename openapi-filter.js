@@ -27,15 +27,15 @@ let s = fs.readFileSync(argv._[0],'utf8');
 let obj = yaml.safeLoad(s,{json:true});
 let res = openapiFilter.filter(obj,argv);
 if (argv._[0].indexOf('.json')>=0) {
-	s = JSON.stringify(res,null,2);
+    s = JSON.stringify(res,null,2);
 }
 else {
-	s = yaml.safeDump(res,{lineWidth:-1});
+    s = yaml.safeDump(res,{lineWidth:-1});
 }
 if (argv._.length>1) {
-	fs.writeFileSync(argv._[1],s,'utf8');
+    fs.writeFileSync(argv._[1],s,'utf8');
 }
 else {
-	console.log(s);
+    console.log(s);
 }
 
