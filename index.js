@@ -15,7 +15,7 @@ function filter(obj,options) {
     let filtered = {};
     recurse(src,{},function(obj,key,state){
         for (let tag of options.tags) {
-            if (obj[key][tag]) {
+            if (obj[key] && obj[key][tag]) {
                 if (options.inverse) {
                     jptr(filtered,state.path,clone(obj[key]));
                 }
