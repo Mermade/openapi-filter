@@ -31,6 +31,18 @@ function filter(obj,options) {
             });
         }
     });
+    if (options.inverse && options.valid) {
+        if (src.swagger && !filtered.swagger) {
+            filtered.swagger = src.swagger;
+        }
+        if (src.openapi && !filtered.openapi) {
+            filtered.openapi = src.openapi;
+        }
+        if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
+            filtered.info = Object.assign({}, filtered.info, { title: src.info.title, version: src.info.version });
+        }
+        if (!filtered.paths) filtered.paths = {};
+    }
     return (options.inverse ? filtered : src);
 }
 

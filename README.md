@@ -24,6 +24,7 @@ Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI 1.x definitions.
 Usage: openapi-filter [options] {infile} [{outfile}]
 
 Options:
+  --valid        try to ensure inverse output is valid                 [boolean]
   -h, --help     Show help                                             [boolean]
   --version      Show version number                                   [boolean]
   -i, --inverse  output filtered elements only                         [boolean]
@@ -34,12 +35,13 @@ use `--` to separate tags from other options, i.e.:
 
 `openapi-filter --tags x-private x-hidden -- source.yaml target.yaml`
 
-or 
+or
 
 ```javascript
 let openapiFilter = require('openapi-filter');
 let options = {}; // defaults are shown
 //options.inverse = false;
+//options.valid = false;
 //options.tags = ['x-internal'];
 let res = openapiFilter.filter(obj,options);
 ```
