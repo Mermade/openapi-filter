@@ -24,11 +24,14 @@ Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI 1.x definitions.
 Usage: openapi-filter [options] {infile} [{outfile}]
 
 Options:
-  --valid        try to ensure inverse output is valid                 [boolean]
-  -h, --help     Show help                                             [boolean]
-  --version      Show version number                                   [boolean]
-  -i, --inverse  output filtered elements only                         [boolean]
-  -t, --tags     tags to filter by             [array] [default: ["x-internal"]]
+  --valid           try to ensure inverse output is valid                 [boolean]
+  -h, --help        Show help                                             [boolean]
+  --version         Show version number                                   [boolean]
+  -i, --inverse     output filtered elements only                         [boolean]
+  -t, --tags        tags to filter by             [array] [default: ["x-internal"]]
+  -s, --strip       strip the tags after filtering                        [boolean]
+  -o, --overrides   tags that act as overrides                [array] [default: []]
+  -l, --lineWidth   determines the line width of the output                [number]
 ```
 
 use `--` to separate tags from other options, i.e.:

@@ -9,14 +9,29 @@ function filter(obj,options) {
     const defaults = {};
     defaults.tags = ['x-internal'];
     defaults.inverse = false;
+    defaults.strip = false;
+    defaults.overrides = [];
     options = Object.assign({},defaults,options);
 
     let src = clone(obj);
     let filtered = {};
     recurse(src,{},function(obj,key,state){
+        for (let override of options.overrides) {
+            if (key.startsWith(override)) {
+                obj[key.substring(override.length)] = obj[key];
+
+                if (options.strip) {
+                    delete obj[key];
+                }
+            }
+        }
         for (let tag of options.tags) {
             if (obj[key] && obj[key][tag]) {
                 if (options.inverse) {
+                    if (options.strip) {
+                        delete obj[key][tag];
+                    }
+
                     jptr(filtered,state.path,clone(obj[key]));
                 }
                 delete obj[key];
