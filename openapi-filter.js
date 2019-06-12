@@ -18,8 +18,19 @@ let argv = require('yargs')
     .alias('t','tags')
     .describe('tags','tags to filter by')
     .default('tags',['x-internal'])
+    .array('overrides')
+    .alias('o', 'overrides')
+    .describe('overrides', 'tags to override fields')
     .boolean('valid')
     .describe('valid','try to ensure inverse output is valid')
+    .boolean('strip')
+    .alias('s', 'strip')
+    .describe('strip','strip the tags from the finished product')
+    .number('lineWidth')
+    .alias('l', 'lineWidth')
+    .describe('lineWidth','max line width of yaml output')
+    .default('lineWidth',-1)
+    .alias('i','inverse')
     .help('h')
     .alias('h', 'help')
     .version()
@@ -32,7 +43,7 @@ if (argv._[0].indexOf('.json')>=0) {
     s = JSON.stringify(res,null,2);
 }
 else {
-    s = yaml.safeDump(res,{lineWidth:-1});
+    s = yaml.safeDump(res,{lineWidth:argv.lineWidth});
 }
 if (argv._.length>1) {
     fs.writeFileSync(argv._[1],s,'utf8');
