@@ -16,7 +16,7 @@ function filter(obj,options) {
     let src = clone(obj);
     let filtered = {};
     recurse(src,{},function(obj,key,state){
-        for (let override of options.overrides) {
+        for (let override of options.overrides||[]) {
             if (key.startsWith(override)) {
                 obj[key.substring(override.length)] = obj[key];
 
