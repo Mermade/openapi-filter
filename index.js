@@ -27,7 +27,7 @@ function filter(obj,options) {
         }
         for (let tag of options.tags) {
             if (obj[key] && obj[key][tag]) {
-                if (options.inverse) {
+                if (options.inverse || options.reverse) {
                     if (options.strip) {
                         delete obj[key][tag];
                     }
@@ -58,7 +58,35 @@ function filter(obj,options) {
         }
         if (!filtered.paths) filtered.paths = {};
     }
-    return (options.inverse ? filtered : src);
+    let reversed = {}
+    if (options.reverse) {
+        reversed = filtered
+        if (src.openapi && !reversed.openapi) {
+            reversed.openapi = src.openapi
+        }
+        if (src.info && !reversed.info) {
+            reversed.info = src.info
+        }
+        if (src.externalDocs && !reversed.externalDocs) {
+            reversed.externalDocs = src.externalDocs
+        }
+        if (src.servers && !reversed.servers) {
+            reversed.servers = src.servers
+        }
+        if (src.tags && !reversed.tags) {
+            reversed.tags = src.tags
+        }
+        if (src['x-tagGroups'] && !reversed['x-tagGroups']) {
+            reversed['x-tagGroups'] = src['x-tagGroups']
+        }
+        if (src.paths && !reversed.paths) {
+            reversed.paths = src.paths
+        }
+        if (src.components && !reversed.components) {
+            reversed.components = src.components
+        }
+    }
+    return (options.inverse ? filtered : options.reverse? reversed : src);
 }
 
 module.exports = {

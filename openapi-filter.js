@@ -7,13 +7,16 @@ const yaml = require('js-yaml');
 const yargs = require('yargs');
 const openapiFilter = require('./index.js');
 
-let argv = require('yargs')
+let argv = yargs
     .usage('Usage: openapi-filter [options] {infile} [{outfile}]')
     .demand(1)
     .strict()
     .boolean('inverse')
     .describe('inverse','output filtered elements only')
     .alias('i','inverse')
+    .boolean('reverse')
+    .describe('reverse','generate valid doc by retaining filtered elements; applies to OpenAPI3 only;')
+    .alias('r', 'reverse')
     .array('tags')
     .alias('t','tags')
     .describe('tags','tags to filter by')
