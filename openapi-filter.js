@@ -44,7 +44,12 @@ if (argv._[0].indexOf('.json')>=0) {
     s = JSON.stringify(res,null,2);
 }
 else {
-    s = yaml.safeDump(res,{lineWidth:argv.lineWidth});
+    // forceStyleLiteral flag
+    if (argv._[2]) {
+        s = yaml.safeDump(res,{lineWidth:-1, forceStyleLiteral: true});
+    } else {
+        s = yaml.safeDump(res,{lineWidth:-1});
+    }
 }
 if (argv._.length>1) {
     fs.writeFileSync(argv._[1],s,'utf8');
