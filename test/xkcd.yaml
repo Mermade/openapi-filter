@@ -29,6 +29,9 @@ paths:
     get:
       description: |
         Fetch current comic and metadata.
+      parameters:
+        - $ref: '#/definitions/comic'
+        - $ref: '#/definitions/hovertext'
       responses:
         '200':
           description: OK
@@ -44,6 +47,7 @@ paths:
           name: comicId
           required: true
           type: number
+        - $ref: '#/definitions/hovertext'
       responses:
         '200':
           description: OK
@@ -75,3 +79,8 @@ definitions:
       year:
         type: string
     type: object
+  hovertext:
+    x-internal: true
+    properties:
+      description:
+        type: string
