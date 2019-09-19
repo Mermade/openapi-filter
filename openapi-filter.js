@@ -3,9 +3,10 @@
 'use strict';
 
 const fs = require('fs');
-const yaml = require('js-yaml');
+const yaml = require('yaml');
 const yargs = require('yargs');
 const openapiFilter = require('./index.js');
+const {strOptions} = require('yaml/types');
 
 let argv = require('yargs')
     .usage('Usage: openapi-filter [options] {infile} [{outfile}]')
@@ -30,7 +31,7 @@ let argv = require('yargs')
     .number('lineWidth')
     .alias('l', 'lineWidth')
     .describe('lineWidth','max line width of yaml output')
-    .default('lineWidth',-1)
+    .default('lineWidth',80)
     .alias('i','inverse')
     .help('h')
     .alias('h', 'help')
@@ -38,13 +39,14 @@ let argv = require('yargs')
     .argv;
 
 let s = fs.readFileSync(argv._[0],'utf8');
-let obj = yaml.safeLoad(s,{json:true});
+let obj = yaml.parse(s);
 let res = openapiFilter.filter(obj,argv);
 if (argv._[0].indexOf('.json')>=0) {
     s = JSON.stringify(res,null,2);
 }
 else {
-    s = yaml.safeDump(res,{lineWidth:argv.lineWidth});
+    strOptions.fold.lineWidth = argv.lineWidth;
+    s = yaml.stringify(res);
 }
 if (argv._.length>1) {
     fs.writeFileSync(argv._[1],s,'utf8');

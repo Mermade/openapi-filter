@@ -46,10 +46,10 @@ function filter(obj,options) {
                 return typeof e !== 'undefined';
             });
         }
+    });
+    recurse(src,{},function(obj,key,state){
         if (obj.hasOwnProperty('$ref') && filteredpaths.includes(obj['$ref'])) {
-            if (typeof state.parent === 'array') {
-                state.parent.splice(state.pkey, 1);
-            }
+            state.parent.splice(state.pkey, 1);
         }
     });
     if (options.inverse && options.valid) {
