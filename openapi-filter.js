@@ -32,7 +32,7 @@ let argv = require('yargs')
     .alias('l', 'lineWidth')
     .describe('lineWidth','max line width of yaml output')
     .default('lineWidth',80)
-    .alias('i','inverse')02e9b1f7274ce206a5b0
+    .alias('i','inverse')
     .help('h')
     .alias('h', 'help')
     .version()
