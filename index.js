@@ -1,7 +1,7 @@
 'use strict';
 
 const recurse = require('reftools/lib/recurse.js').recurse;
-const clone = require('reftools/lib/clone.js').deepClone;
+const clone = require('reftools/lib/clone.js').clone;
 const jptr = require('reftools/lib/jptr.js').jptr;
 
 function filter(obj,options) {
@@ -49,7 +49,9 @@ function filter(obj,options) {
     });
     recurse(src,{},function(obj,key,state){
         if (obj.hasOwnProperty('$ref') && filteredpaths.includes(obj['$ref'])) {
-            state.parent.splice(state.pkey, 1);
+            if (Array.isArray(state.parent)) {
+                state.parent.splice(state.pkey, 1);
+            }
         }
     });
     if (options.inverse && options.valid) {
