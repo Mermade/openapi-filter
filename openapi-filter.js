@@ -4,9 +4,8 @@
 
 const fs = require('fs');
 const yaml = require('yaml');
-const yargs = require('yargs');
-const openapiFilter = require('./index.js');
 const {strOptions} = require('yaml/types');
+const openapiFilter = require('./index.js');
 
 let argv = require('yargs')
     .usage('Usage: openapi-filter [options] {infile} [{outfile}]')
