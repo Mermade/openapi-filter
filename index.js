@@ -15,6 +15,7 @@ function filter(obj,options) {
 
     let src = clone(obj);
     let filtered = {};
+    let filteredpaths = [];
     recurse(src,{},function(obj,key,state){
         for (let override of options.overrides||[]) {
             if (key.startsWith(override)) {
@@ -31,9 +32,9 @@ function filter(obj,options) {
                     if (options.strip) {
                         delete obj[key][tag];
                     }
-
                     jptr(filtered,state.path,clone(obj[key]));
                 }
+                filteredpaths.push(state.path);
                 delete obj[key];
                 break;
             }
@@ -44,6 +45,13 @@ function filter(obj,options) {
             obj[key] = obj[key].filter(function(e){
                 return typeof e !== 'undefined';
             });
+        }
+    });
+    recurse(src,{},function(obj,key,state){
+        if (obj.hasOwnProperty('$ref') && filteredpaths.includes(obj['$ref'])) {
+            if (Array.isArray(state.parent)) {
+                state.parent.splice(state.pkey, 1);
+            }
         }
     });
     if (options.inverse && options.valid) {
@@ -59,6 +67,7 @@ function filter(obj,options) {
         if (!filtered.paths) filtered.paths = {};
     }
     return (options.inverse ? filtered : src);
+    
 }
 
 module.exports = {
