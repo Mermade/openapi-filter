@@ -71,7 +71,7 @@ function filter(obj,options) {
                 filteredsecurityschemes.push(...Object.keys(filtered.securityDefinitions));
             }
             // OAS3
-            if (filtered.components.securitySchemes) {
+            if (filtered.components && filtered.components.securitySchemes) {
                 filteredsecurityschemes.push(...Object.keys(filtered.components.securitySchemes));
             }
             filtered.security = src.security.filter(req => {
