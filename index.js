@@ -55,14 +55,15 @@ function filter(obj,options) {
         }
     });
     if (options.inverse && options.valid) {
+        let info = {};
+        if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
+            info = Object.assign({}, filtered.info, options.info ? src.info : { title: src.info.title, version: src.info.version });
+        }
         if (src.swagger && !filtered.swagger) {
-            filtered.swagger = src.swagger;
+            filtered = Object.assign({ swagger: src.swagger, info: info }, filtered);
         }
         if (src.openapi && !filtered.openapi) {
-            filtered.openapi = src.openapi;
-        }
-        if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
-            filtered.info = Object.assign({}, filtered.info, options.info ? src.info : { title: src.info.title, version: src.info.version });
+            filtered = Object.assign({ openapi: src.openapi, info: info }, filtered);
         }
         if (!filtered.security && Array.isArray(src.security)) {
             const filteredsecurityschemes = [];
