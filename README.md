@@ -24,6 +24,7 @@ Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI 1.x definitions.
 Usage: openapi-filter [options] {infile} [{outfile}]
 
 Options:
+  --info           include complete info object with --valid           [boolean]
   --valid           try to ensure inverse output is valid                 [boolean]
   -h, --help        Show help                                             [boolean]
   --version         Show version number                                   [boolean]
