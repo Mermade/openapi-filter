@@ -64,10 +64,29 @@ function filter(obj,options) {
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
             filtered.info = Object.assign({}, filtered.info, options.info ? src.info : { title: src.info.title, version: src.info.version });
         }
+        if (!filtered.security && Array.isArray(src.security)) {
+            const filteredsecurityschemes = [];
+            // OAS2
+            if (filtered.securityDefinitions) {
+                filteredsecurityschemes.push(...Object.keys(filtered.securityDefinitions));
+            }
+            // OAS3
+            if (filtered.components && filtered.components.securitySchemes) {
+                filteredsecurityschemes.push(...Object.keys(filtered.components.securitySchemes));
+            }
+            filtered.security = src.security.filter(req => {
+                const filteredreq = {};
+                Object.getOwnPropertyNames(req).forEach(function(n){
+                    if (filteredsecurityschemes.includes(n)) {
+                        filteredreq[n] = clone(req[n]);
+                    }
+                });
+                return Object.getOwnPropertyNames(filteredreq).length !== 0;
+            });
+        }
         if (!filtered.paths) filtered.paths = {};
     }
     return (options.inverse ? filtered : src);
-
 }
 
 module.exports = {
