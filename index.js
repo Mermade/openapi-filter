@@ -62,12 +62,12 @@ function filter(obj,options) {
             filtered.openapi = src.openapi;
         }
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
-            filtered.info = Object.assign({}, filtered.info, { title: src.info.title, version: src.info.version });
+            filtered.info = Object.assign({}, filtered.info, options.info ? src.info : { title: src.info.title, version: src.info.version });
         }
         if (!filtered.paths) filtered.paths = {};
     }
     return (options.inverse ? filtered : src);
-    
+
 }
 
 module.exports = {
