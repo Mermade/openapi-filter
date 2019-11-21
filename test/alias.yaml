@@ -1,0 +1,202 @@
+### Test to check for many aliases
+x-definitions:                          
+  CorsResponseParameters: &CorsResponseParameters
+    method.response.header.Access-Control-Allow-Methods: '''DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'''
+      
+  CorsMock: &CorsMock
+    responses:
+      default:
+        statusCode: '200'
+        responseParameters: *CorsResponseParameters
+  
+  ErrorResponses: &ErrorResponses
+    '400':
+      $ref: '#/components/responses/badRequest'
+  
+  CorsResponse: &CorsResponse   
+    x-amazon-apigateway-integration: *CorsMock
+  
+  DefaultParameters: &DefaultParameters
+
+### AWS API Gateway anchors
+  DefaultRequestParameters: &DefaultRequestParameters
+    integration.request.header.Accept: method.request.header.Accept
+  
+  ResponseMappings: &ResponseMappings
+    '200':
+      statusCode: 200
+      responseParameters: *CorsResponseParameters
+
+    
+###########################
+# The API Spec comes here #
+###########################
+
+openapi: 3.0.1
+info:
+  version: v0
+  title: Alias test
+
+paths:
+  /resource1:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource2:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource3:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource4:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource5:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource6:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+  
+  /resource7:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource8:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource9:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource10:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+  /resource11:
+    options: *CorsResponse
+    x-amazon-apigateway-any-method: &GetData
+      parameters: *DefaultParameters
+      responses:
+        << : *ErrorResponses
+      x-amazon-apigateway-integration:
+        responses: *ResponseMappings
+        requestParameters: *DefaultRequestParameters
+    get: 
+      << : *GetData      
+    post:
+      << : *GetData
+
+# Components
+
+components:
+  responses:
+    200withcors:
+      description: Successful response
+    badRequest:
+      description: Bad request
