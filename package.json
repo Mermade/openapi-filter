@@ -12,7 +12,7 @@
   "dependencies": {
     "reftools": "^1.0.8",
     "yaml": "^1.7.0",
-    "yargs": "^14.0.0"
+    "yargs": "^15.0.2"
   },
   "devDependencies": {},
   "repository": {
