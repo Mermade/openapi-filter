@@ -40,7 +40,7 @@ function filter(obj,options) {
             }
         }
     });
-    recurse(src,{},function(obj,key,state){
+    recurse((options.inverse ? filtered : src),{},function(obj,key,state){
         if (Array.isArray(obj[key])) {
             obj[key] = obj[key].filter(function(e){
                 return typeof e !== 'undefined';
@@ -86,6 +86,10 @@ function filter(obj,options) {
             });
         }
         if (!filtered.paths) filtered.paths = {};
+
+        if (options.servers && !filtered.servers && Array.isArray(src.servers)) {
+            filtered.servers = src.servers;
+        }
     }
     return (options.inverse ? filtered : src);
 }
