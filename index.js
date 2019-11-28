@@ -40,7 +40,7 @@ function filter(obj,options) {
             }
         }
     });
-    recurse(src,{},function(obj,key,state){
+    recurse((options.inverse ? filtered : src),{},function(obj,key,state){
         if (Array.isArray(obj[key])) {
             obj[key] = obj[key].filter(function(e){
                 return typeof e !== 'undefined';

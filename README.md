@@ -21,22 +21,27 @@ paths:
 Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI 1.x definitions.
 
 ```
-Usage: openapi-filter [options] {infile} [{outfile}]
+openapi-filter.js <infile> [outfile]
+
+Positionals:
+  infile   the input file
+  outfile  the output file
 
 Options:
-  --info           include complete info object with --valid              [boolean]
+
+  --info           include complete info object with --valid           [boolean]
+  --inverse, -i    output filtered elements only                       [boolean]
+  --tags, -t       tags to filter by           [array] [default: ["x-internal"]]
+  --overrides, -o  tags to override fields                 [array] [default: []]
+  --valid          try to ensure inverse output is valid               [boolean]
+  --strip, -s      strip the tags from the finished product            [boolean]
   --servers        include complete servers object with --valid           [boolean]
-  --valid           try to ensure inverse output is valid                 [boolean]
-  -h, --help        Show help                                             [boolean]
-  --version         Show version number                                   [boolean]
-  -i, --inverse     output filtered elements only                         [boolean]
-  -t, --tags        tags to filter by             [array] [default: ["x-internal"]]
-  -s, --strip       strip the tags after filtering                        [boolean]
-  -o, --overrides   tags that act as overrides                [array] [default: []]
-  -l, --lineWidth   determines the line width of the output                [number]
+  --lineWidth, -l  max line width of yaml output          [number] [default: -1]
+  --help           Show help                                           [boolean]
+
 ```
 
-use `--` to separate tags from other options, i.e.:
+use `--` to separate tags or other array options from following options, i.e.:
 
 `openapi-filter --tags x-private x-hidden -- source.yaml target.yaml`
 
