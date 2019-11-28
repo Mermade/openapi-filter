@@ -35,7 +35,7 @@ Options:
   --overrides, -o  tags to override fields                 [array] [default: []]
   --valid          try to ensure inverse output is valid               [boolean]
   --strip, -s      strip the tags from the finished product            [boolean]
-  --servers        include complete servers object with --valid           [boolean]
+  --servers        include complete servers object with --valid        [boolean]
   --lineWidth, -l  max line width of yaml output          [number] [default: -1]
   --help           Show help                                           [boolean]
 
