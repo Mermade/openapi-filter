@@ -38,12 +38,15 @@ let argv = require('yargs')
     .alias('lineWidth','l')
     .describe('lineWidth','max line width of yaml output')
     .default('lineWidth',-1)
+    .number('maxAliasCount')
+    .default('maxAliasCount',100)
+    .describe('maxAliasCount','maximum YAML aliases allowed')
     .help()
     .version()
     .argv;
 
 let s = fs.readFileSync(argv.infile,'utf8');
-let obj = yaml.parse(s);
+let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
 let res = openapiFilter.filter(obj,argv);
 if (argv.infile.indexOf('.json')>=0) {
     s = JSON.stringify(res,null,2);

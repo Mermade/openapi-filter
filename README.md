@@ -37,6 +37,7 @@ Options:
   --strip, -s      strip the tags from the finished product            [boolean]
   --servers        include complete servers object with --valid        [boolean]
   --lineWidth, -l  max line width of yaml output          [number] [default: -1]
+  --maxAliasCount  maximum YAML aliases allowed          [number] [default: 100]
   --help           Show help                                           [boolean]
 
 ```
