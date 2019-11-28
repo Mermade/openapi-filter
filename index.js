@@ -86,6 +86,10 @@ function filter(obj,options) {
             });
         }
         if (!filtered.paths) filtered.paths = {};
+
+        if (options.servers && !filtered.servers && Array.isArray(src.servers)) {
+            filtered.servers = src.servers;
+        }
     }
     return (options.inverse ? filtered : src);
 }
