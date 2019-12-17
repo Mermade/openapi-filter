@@ -28,7 +28,7 @@ function filter(obj,options) {
             }
         }
         for (let tag of options.tags) {
-            if ( (options.checkArray == false && (obj[key] && obj[key][tag])) || (options.checkArray && (obj[key] && obj[key]['tags'] && obj[key]['tags'].includes(tag))) ) {
+            if ( (options.checkArray == false && (obj[key] && obj[key][tag])) || (options.checkArray && (obj[key] && obj[key]['tags'] && Array.isArray(obj[key]['tags']) && obj[key]['tags'].includes(tag))) ) {
                 if (options.inverse) {
                     if (options.strip) {
                         delete obj[key][tag];
