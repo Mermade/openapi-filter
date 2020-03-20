@@ -11,7 +11,7 @@ info:
     - media
   x-logo:
     url: 'http://imgs.xkcd.com/static/terrible_small_logo.png'
-    x-private: true
+    x-internal: true
   x-origin:
     - format: swagger
       url: 'https://raw.githubusercontent.com/APIs-guru/unofficial_openapi_specs/master/xkcd.com/1.0.0/swagger.yaml'
@@ -29,13 +29,16 @@ paths:
     get:
       description: |
         Fetch current comic and metadata.
+      parameters:
+        - $ref: '#/definitions/comic'
+        - $ref: '#/definitions/hovertext'
       responses:
         '200':
           description: OK
           schema:
             $ref: '#/definitions/comic'
   '/{comicId}/info.0.json':
-    x-classified: true
+    x-internal: true
     get:
       description: |
         Fetch comics and metadata by comic id.
@@ -44,6 +47,7 @@ paths:
           name: comicId
           required: true
           type: number
+        - $ref: '#/definitions/hovertext'
       responses:
         '200':
           description: OK
@@ -75,3 +79,8 @@ definitions:
       year:
         type: string
     type: object
+  hovertext:
+    x-internal: true
+    properties:
+      description:
+        type: string

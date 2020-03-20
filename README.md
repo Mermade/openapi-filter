@@ -1,6 +1,6 @@
 # openapi-filter
 
-Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger definitions
+Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger definitions.
 
 Simply tag any object within the definition with an `x-internal` specification extension, and it will be removed from the output.
 
@@ -18,7 +18,9 @@ paths:
       ...
 ```
 
-Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI 1.x definitions.
+Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI definitions.
+
+Note: in version 2.0 the `--tags` option will be renamed to prevent confusion withe OpenAPI `tags` object.
 
 ```
 openapi-filter.js <infile> [outfile]
@@ -32,14 +34,13 @@ Options:
   --info           include complete info object with --valid           [boolean]
   --inverse, -i    output filtered elements only                       [boolean]
   --tags, -t       tags to filter by           [array] [default: ["x-internal"]]
-  --overrides, -o  tags to override fields                 [array] [default: []]
+  --overrides, -o  prefixes used to override named properties[arr] [default: []]
   --valid          try to ensure inverse output is valid               [boolean]
   --strip, -s      strip the tags from the finished product            [boolean]
   --servers        include complete servers object with --valid        [boolean]
   --lineWidth, -l  max line width of yaml output          [number] [default: -1]
   --maxAliasCount  maximum YAML aliases allowed          [number] [default: 100]
   --help           Show help                                           [boolean]
-
 ```
 
 use `--` to separate tags or other array options from following options, i.e.:
@@ -56,3 +57,5 @@ let options = {}; // defaults are shown
 //options.tags = ['x-internal'];
 let res = openapiFilter.filter(obj,options);
 ```
+
+See the [wiki](https://github.com/Mermade/openapi-filter/wiki) for further examples.

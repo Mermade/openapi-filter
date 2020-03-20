@@ -1,0 +1,610 @@
+x-definitions:
+  CorsResponseParameters:
+    method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+  CorsMock:
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+  ErrorResponses:
+    "400":
+      $ref: "#/components/responses/badRequest"
+  CorsResponse:
+    x-amazon-apigateway-integration:
+      responses:
+        default:
+          statusCode: "200"
+          responseParameters:
+            method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+  DefaultParameters: null
+  DefaultRequestParameters:
+    integration.request.header.Accept: method.request.header.Accept
+  ResponseMappings:
+    "200":
+      statusCode: 200
+      responseParameters:
+        method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+openapi: 3.0.1
+info:
+  version: v0
+  title: Alias test
+paths:
+  /resource1:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource2:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource3:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource4:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource5:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource6:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource7:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource8:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource9:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource10:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+  /resource11:
+    options:
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+    x-amazon-apigateway-any-method:
+      parameters: null
+      responses:
+        <<:
+          "400":
+            $ref: "#/components/responses/badRequest"
+      x-amazon-apigateway-integration:
+        responses:
+          "200":
+            statusCode: 200
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+        requestParameters:
+          integration.request.header.Accept: method.request.header.Accept
+    get:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+    post:
+      <<:
+        parameters: null
+        responses:
+          <<:
+            "400":
+              $ref: "#/components/responses/badRequest"
+        x-amazon-apigateway-integration:
+          responses:
+            "200":
+              statusCode: 200
+              responseParameters:
+                method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+          requestParameters:
+            integration.request.header.Accept: method.request.header.Accept
+components:
+  responses:
+    200withcors:
+      description: Successful response
+    badRequest:
+      description: Bad request

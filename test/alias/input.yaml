@@ -1,33 +1,33 @@
 ### Test to check for many aliases
-x-definitions:                          
+x-definitions:
   CorsResponseParameters: &CorsResponseParameters
     method.response.header.Access-Control-Allow-Methods: '''DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'''
-      
+
   CorsMock: &CorsMock
     responses:
       default:
         statusCode: '200'
         responseParameters: *CorsResponseParameters
-  
+
   ErrorResponses: &ErrorResponses
     '400':
       $ref: '#/components/responses/badRequest'
-  
-  CorsResponse: &CorsResponse   
+
+  CorsResponse: &CorsResponse
     x-amazon-apigateway-integration: *CorsMock
-  
+
   DefaultParameters: &DefaultParameters
 
 ### AWS API Gateway anchors
   DefaultRequestParameters: &DefaultRequestParameters
     integration.request.header.Accept: method.request.header.Accept
-  
+
   ResponseMappings: &ResponseMappings
     '200':
       statusCode: 200
       responseParameters: *CorsResponseParameters
 
-    
+
 ###########################
 # The API Spec comes here #
 ###########################
@@ -47,8 +47,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -61,8 +61,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -75,8 +75,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -89,8 +89,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -103,8 +103,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -117,11 +117,11 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
-  
+
   /resource7:
     options: *CorsResponse
     x-amazon-apigateway-any-method: &GetData
@@ -131,8 +131,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -145,8 +145,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -159,8 +159,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -173,8 +173,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 
@@ -187,8 +187,8 @@ paths:
       x-amazon-apigateway-integration:
         responses: *ResponseMappings
         requestParameters: *DefaultRequestParameters
-    get: 
-      << : *GetData      
+    get:
+      << : *GetData
     post:
       << : *GetData
 

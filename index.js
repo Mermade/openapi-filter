@@ -17,20 +17,28 @@ function filter(obj,options) {
     let filtered = {};
     let filteredpaths = [];
     recurse(src,{},function(obj,key,state){
-        for (let override of options.overrides||[]) {
+        for (let override of options.overrides) {
             if (key.startsWith(override)) {
                 obj[key.substring(override.length)] = obj[key];
-
                 if (options.strip) {
                     delete obj[key];
                 }
             }
         }
+
         for (let tag of options.tags) {
             if (obj[key] && obj[key][tag]) {
                 if (options.inverse) {
                     if (options.strip) {
                         delete obj[key][tag];
+                    }
+                    if (Array.isArray(obj)) {
+                      // we need to seed the presence of an empty array
+                      // otherwise jptr won't know whether it's setting
+                      // an array entry or a property with a numeric key #26
+                      const components = state.path.split('/');
+                      components.pop(); // throw away last item
+                      jptr(filtered,components.join('/'),[]);
                     }
                     jptr(filtered,state.path,clone(obj[key]));
                 }
@@ -40,6 +48,7 @@ function filter(obj,options) {
             }
         }
     });
+
     recurse((options.inverse ? filtered : src),{},function(obj,key,state){
         if (Array.isArray(obj[key])) {
             obj[key] = obj[key].filter(function(e){
@@ -47,6 +56,7 @@ function filter(obj,options) {
             });
         }
     });
+
     recurse(src,{},function(obj,key,state){
         if (obj.hasOwnProperty('$ref') && filteredpaths.includes(obj['$ref'])) {
             if (Array.isArray(state.parent)) {
@@ -54,6 +64,7 @@ function filter(obj,options) {
             }
         }
     });
+
     if (options.inverse && options.valid) {
         let info = {};
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {

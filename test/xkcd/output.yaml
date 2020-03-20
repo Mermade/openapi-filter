@@ -1,53 +1,38 @@
-swagger: '2.0'
+swagger: "2.0"
 schemes:
   - http
 host: xkcd.com
 basePath: /
 info:
-  description: 'Webcomic of romance, sarcasm, math, and language.'
+  description: Webcomic of romance, sarcasm, math, and language.
   title: XKCD
   version: 1.0.0
   x-apisguru-categories:
     - media
-  x-logo:
-    url: 'http://imgs.xkcd.com/static/terrible_small_logo.png'
   x-origin:
     - format: swagger
-      url: 'https://raw.githubusercontent.com/APIs-guru/unofficial_openapi_specs/master/xkcd.com/1.0.0/swagger.yaml'
-      version: '2.0'
+      url: https://raw.githubusercontent.com/APIs-guru/unofficial_openapi_specs/master/xkcd.com/1.0.0/swagger.yaml
+      version: "2.0"
   x-providerName: xkcd.com
   x-tags:
     - humor
     - comics
   x-unofficialSpec: true
 externalDocs:
-  url: 'https://xkcd.com/json.html'
+  url: https://xkcd.com/json.html
 securityDefinitions: {}
 paths:
   /info.0.json:
     get:
       description: |
         Fetch current comic and metadata.
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/comic'
-  '/{comicId}/info.0.json':
-    get:
-      description: |
-        Fetch comics and metadata by comic id.
       parameters:
-        - in: path
-          name: comicId
-          required: true
-          type: number
-          x-internal: true
+        - $ref: "#/definitions/comic"
       responses:
-        '200':
+        "200":
           description: OK
           schema:
-            $ref: '#/definitions/comic'
+            $ref: "#/definitions/comic"
 definitions:
   comic:
     properties:

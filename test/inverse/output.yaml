@@ -1,0 +1,27 @@
+info:
+  x-logo:
+    url: http://imgs.xkcd.com/static/terrible_small_logo.png
+    x-internal: true
+paths:
+  "/{comicId}/info.0.json":
+    x-internal: true
+    get:
+      description: |
+        Fetch comics and metadata by comic id.
+      parameters:
+        - in: path
+          name: comicId
+          required: true
+          type: number
+        - $ref: "#/definitions/hovertext"
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/comic"
+definitions:
+  hovertext:
+    x-internal: true
+    properties:
+      description:
+        type: string
