@@ -58,7 +58,7 @@ function filter(obj,options) {
     });
 
     recurse(src,{},function(obj,key,state){
-        if (obj.hasOwnProperty('$ref') && filteredpaths.includes(obj['$ref'])) {
+        if (obj.hasOwnProperty('$ref') && filteredpaths.includes(obj.$ref)) {
             if (Array.isArray(state.parent)) {
                 state.parent.splice(state.pkey, 1);
             }
