@@ -2,7 +2,7 @@
   "name": "openapi-filter",
   "version": "2.0.0",
   "description": "Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger definitions",
-  "main": "openapi-filter.js",
+  "main": "index.js",
   "bin": "openapi-filter.js",
   "scripts": {
     "lint": "npx eslint *.js",
