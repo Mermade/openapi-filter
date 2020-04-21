@@ -8,6 +8,7 @@ function filter(obj,options) {
 
     const defaults = {};
     defaults.tags = ['x-internal'];
+    defaults.checkArray = false;
     defaults.inverse = false;
     defaults.strip = false;
     defaults.overrides = [];
@@ -27,7 +28,7 @@ function filter(obj,options) {
         }
 
         for (let tag of options.tags) {
-            if (obj[key] && obj[key][tag]) {
+            if ( (options.checkArray == false && (obj[key] && obj[key][tag])) || (options.checkArray && (obj[key] && obj[key]['tags'] && Array.isArray(obj[key]['tags']) && obj[key]['tags'].includes(tag))) ) {
                 if (options.inverse) {
                     if (options.strip) {
                         delete obj[key][tag];
@@ -108,4 +109,3 @@ function filter(obj,options) {
 module.exports = {
     filter : filter
 };
-
