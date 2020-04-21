@@ -20,7 +20,7 @@ paths:
 
 Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI definitions.
 
-Note: in version 2.0 the `--tags` option will be renamed to prevent confusion withe OpenAPI `tags` object.
+Note: in version 2.0 the `--tags` option will be renamed to prevent confusion with the OpenAPI `tags` object.
 
 ```
 openapi-filter.js <infile> [outfile]
