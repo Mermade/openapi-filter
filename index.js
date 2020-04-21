@@ -88,6 +88,9 @@ function filter(obj,options) {
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
             info = Object.assign({}, filtered.info, options.info ? src.info : { title: src.info.title, version: src.info.version });
         }
+        if (src.asyncapi && !filtered.asyncpi) {
+            filtered = Object.assign({ asyncapi: src.asyncapi, info: info }, filtered);
+        }
         if (src.swagger && !filtered.swagger) {
             filtered = Object.assign({ swagger: src.swagger, info: info }, filtered);
         }
@@ -114,7 +117,7 @@ function filter(obj,options) {
                 return Object.getOwnPropertyNames(filteredreq).length !== 0;
             });
         }
-        if (!filtered.paths) filtered.paths = {};
+        if (!filtered.paths && !filtered.asyncapi) filtered.paths = {};
 
         if (options.servers && !filtered.servers && Array.isArray(src.servers)) {
             filtered.servers = src.servers;
