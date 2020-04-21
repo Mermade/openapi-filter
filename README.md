@@ -2,7 +2,7 @@
 
 Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger definitions.
 
-Simply tag any object within the definition with an `x-internal` specification extension, and it will be removed from the output.
+Simply flag any object within the definition with an `x-internal` specification extension, and it will be removed from the output.
 
 For example:
 
@@ -20,8 +20,6 @@ paths:
 
 Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI definitions.
 
-Note: in version 2.0 the `--tags` option will be renamed to prevent confusion with the OpenAPI `tags` object.
-
 ```
 openapi-filter.js <infile> [outfile]
 
@@ -33,19 +31,21 @@ Options:
 
   --info           include complete info object with --valid           [boolean]
   --inverse, -i    output filtered elements only                       [boolean]
-  --tags, -t       tags to filter by           [array] [default: ["x-internal"]]
+  --flags, -f      flags to filter by          [array] [default: ["x-internal"]]
+  --checkTags      filter if flags given in --flags are in the tags array
+                                                                       [boolean]
   --overrides, -o  prefixes used to override named properties[arr] [default: []]
   --valid          try to ensure inverse output is valid               [boolean]
-  --strip, -s      strip the tags from the finished product            [boolean]
+  --strip, -s      strip the flags from the finished product           [boolean]
   --servers        include complete servers object with --valid        [boolean]
   --lineWidth, -l  max line width of yaml output          [number] [default: -1]
   --maxAliasCount  maximum YAML aliases allowed          [number] [default: 100]
   --help           Show help                                           [boolean]
 ```
 
-use `--` to separate tags or other array options from following options, i.e.:
+use `--` to separate flags or other array options from following options, i.e.:
 
-`openapi-filter --tags x-private x-hidden -- source.yaml target.yaml`
+`openapi-filter --flags x-private x-hidden -- source.yaml target.yaml`
 
 or
 
@@ -54,7 +54,7 @@ let openapiFilter = require('openapi-filter');
 let options = {}; // defaults are shown
 //options.inverse = false;
 //options.valid = false;
-//options.tags = ['x-internal'];
+//options.flags = ['x-internal'];
 let res = openapiFilter.filter(obj,options);
 ```
 

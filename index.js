@@ -7,8 +7,8 @@ const jptr = require('reftools/lib/jptr.js').jptr;
 function filter(obj,options) {
 
     const defaults = {};
-    defaults.tags = ['x-internal'];
-    defaults.checkArray = false;
+    defaults.flags = ['x-internal'];
+    defaults.checkTags = false;
     defaults.inverse = false;
     defaults.strip = false;
     defaults.overrides = [];
@@ -27,11 +27,11 @@ function filter(obj,options) {
             }
         }
 
-        for (let tag of options.tags) {
-            if ( (options.checkArray == false && (obj[key] && obj[key][tag])) || (options.checkArray && (obj[key] && obj[key]['tags'] && Array.isArray(obj[key]['tags']) && obj[key]['tags'].includes(tag))) ) {
+        for (let flag of options.flags) {
+            if ((options.checkTags == false && (obj[key] && obj[key][flag])) || (options.checkTags && (obj[key] && obj[key]['tags'] && Array.isArray(obj[key]['tags']) && obj[key]['tags'].includes(flag)))) {
                 if (options.inverse) {
                     if (options.strip) {
-                        delete obj[key][tag];
+                        delete obj[key][flag];
                     }
                     if (Array.isArray(obj)) {
                       // we need to seed the presence of an empty array
@@ -50,6 +50,7 @@ function filter(obj,options) {
         }
     });
 
+    // remove undefined properties (important for YAML output)
     recurse((options.inverse ? filtered : src),{},function(obj,key,state){
         if (Array.isArray(obj[key])) {
             obj[key] = obj[key].filter(function(e){
@@ -66,7 +67,23 @@ function filter(obj,options) {
         }
     });
 
+    // tidy up any paths where we have removed all the operations
+    for (let p in src.paths) {
+        if (Object.keys(src.paths[p]).length === 0) {
+            delete src.paths[p];
+        }
+    }
+
     if (options.inverse && options.valid) {
+        // ensure any components being reffed are still included in output
+        recurse(filtered,{},function(o,key,state){
+            if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
+                if (!jptr(filtered,o.$ref)) {
+                    jptr(filtered,o.$ref,jptr(obj,o.$ref));
+                }
+            }
+        });
+
         let info = {};
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
             info = Object.assign({}, filtered.info, options.info ? src.info : { title: src.info.title, version: src.info.version });
