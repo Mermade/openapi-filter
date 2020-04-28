@@ -39,7 +39,9 @@ function filter(obj,options) {
                       // an array entry or a property with a numeric key #26
                       const components = state.path.split('/');
                       components.pop(); // throw away last item
-                      jptr(filtered,components.join('/'),[]);
+                      if (jptr(filtered,components.join('/')) === false) {
+                        jptr(filtered,components.join('/'),[]);
+                      }
                     }
                     jptr(filtered,state.path,clone(obj[key]));
                 }

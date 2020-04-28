@@ -1,0 +1,13 @@
+openapi: 3.0.0
+info:
+  title: API
+  version: 1.0.0
+tags:
+  - name: Tag 1
+  - "x-public": true
+    name: Tag 2
+  - "x-public": true
+    name: Tag 3
+  - "x-public": true
+    name: Tag 4
+paths: {}
