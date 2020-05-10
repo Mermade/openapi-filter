@@ -14,6 +14,7 @@ paths:
           name: comicId
           required: true
           type: number
+        - $ref: '#/definitions/complex'
         - $ref: "#/definitions/hovertext"
       responses:
         "200":
@@ -51,3 +52,24 @@ definitions:
       year:
         type: string
     type: object
+  complex:
+    properties:
+      a69:
+        type: object
+        oneOf:
+          - $ref: '#/definitions/b1'
+          - $ref: '#/definitions/b2'
+  b1:
+    properties:
+      ab:
+        type: string
+  b2:
+    properties:
+      ac:
+        type: object
+        oneOf:
+          - $ref: '#/definitions/c1'
+  c1:
+    properties:
+      ab:
+        type: string

@@ -10,6 +10,7 @@ function filter(obj,options) {
     defaults.flags = ['x-internal'];
     defaults.checkTags = false;
     defaults.inverse = false;
+    defaults.validationDepth = 1;
     defaults.strip = false;
     defaults.overrides = [];
     options = Object.assign({},defaults,options);
@@ -78,13 +79,15 @@ function filter(obj,options) {
 
     if (options.inverse && options.valid) {
         // ensure any components being reffed are still included in output
-        recurse(filtered,{},function(o,key,state){
-            if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
-                if (!jptr(filtered,o.$ref)) {
-                    jptr(filtered,o.$ref,jptr(obj,o.$ref));
+        for (var i = 0; i < options.validationDepth; i++) {
+            recurse(filtered, {}, function (o, key, state) {
+                if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
+                    if (!jptr(filtered, o.$ref)) {
+                        jptr(filtered, o.$ref, jptr(obj, o.$ref));
+                    }
                 }
-            }
-        });
+            });
+        }
 
         let info = {};
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
