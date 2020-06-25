@@ -14,6 +14,10 @@ function filter(obj,options) {
     defaults.overrides = [];
     options = Object.assign({},defaults,options);
 
+    if (options.valid) {
+        console.warn('--valid is deprecated and will be removed in favor of --keepReferences in a future release. Please consider moving now to avoid complications.');
+    }
+
     let src = clone(obj);
     let filtered = {};
     let filteredpaths = [];
@@ -76,15 +80,29 @@ function filter(obj,options) {
         }
     }
 
-    if (options.inverse && options.valid) {
+    if (options.inverse && (options.valid || options.keepReferences)) {
         // ensure any components being reffed are still included in output
-        recurse(filtered,{},function(o,key,state){
-            if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
-                if (!jptr(filtered,o.$ref)) {
-                    jptr(filtered,o.$ref,jptr(obj,o.$ref));
+        var checkForReferences = true;
+
+        while (checkForReferences) {
+            var changesMade = false;
+
+            recurse(filtered, {}, function (o, key, state) {
+                if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
+                    if (!jptr(filtered, o.$ref)) {
+                        jptr(filtered, o.$ref, jptr(obj, o.$ref));
+
+                        changesMade = true;
+                    }
                 }
-            }
-        });
+
+                if (options.keepReferences) {
+                    checkForReferences = changesMade;
+                } else {
+                    checkForReferences = false;
+                }
+            });
+        }
 
         let info = {};
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
