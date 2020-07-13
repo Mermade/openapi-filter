@@ -14,10 +14,6 @@ function filter(obj,options) {
     defaults.overrides = [];
     options = Object.assign({},defaults,options);
 
-    if (options.valid) {
-        console.warn('--valid is deprecated and will be removed in favor of --keepReferences in a future release. Please consider moving now to avoid complications.');
-    }
-
     let src = clone(obj);
     let filtered = {};
     let filteredpaths = [];
@@ -80,7 +76,7 @@ function filter(obj,options) {
         }
     }
 
-    if (options.inverse && (options.valid || options.keepReferences)) {
+    if (options.inverse && options.valid) {
         // ensure any components being reffed are still included in output
         var checkForReferences = true;
 
@@ -96,11 +92,7 @@ function filter(obj,options) {
                     }
                 }
 
-                if (options.keepReferences) {
-                    checkForReferences = changesMade;
-                } else {
-                    checkForReferences = false;
-                }
+                checkForReferences = changesMade;
             });
         }
 
