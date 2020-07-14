@@ -1,5 +1,7 @@
 # openapi-filter
 
+![ci](https://github.com/Mermade/openapi-filter/workflows/ci/badge.svg)
+
 Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger/AsyncAPI definitions.
 
 Simply flag any object within the definition with an `x-internal` specification extension, and it will be removed from the output.
