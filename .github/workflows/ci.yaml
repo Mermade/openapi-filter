@@ -5,7 +5,7 @@ name: ci
 # Desc  : This workflow runs a simple lint and test for a node.js project
 
 # run this on push to any branch and creation of pull-requests
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   ci:
