@@ -78,13 +78,23 @@ function filter(obj,options) {
 
     if (options.inverse && options.valid) {
         // ensure any components being reffed are still included in output
-        recurse(filtered,{},function(o,key,state){
-            if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
-                if (!jptr(filtered,o.$ref)) {
-                    jptr(filtered,o.$ref,jptr(obj,o.$ref));
+        let checkForReferences = true;
+
+        while (checkForReferences) {
+            let changesMade = false;
+
+            recurse(filtered, {}, function (o, key, state) {
+                if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
+                    if (!jptr(filtered, o.$ref)) {
+                        jptr(filtered, o.$ref, jptr(obj, o.$ref));
+
+                        changesMade = true;
+                    }
                 }
-            }
-        });
+
+                checkForReferences = changesMade;
+            });
+        }
 
         let info = {};
         if (src.info && (!filtered.info || !filtered.info.version || !filtered.info.title)) {
