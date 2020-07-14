@@ -78,10 +78,10 @@ function filter(obj,options) {
 
     if (options.inverse && options.valid) {
         // ensure any components being reffed are still included in output
-        var checkForReferences = true;
+        let checkForReferences = true;
 
         while (checkForReferences) {
-            var changesMade = false;
+            let changesMade = false;
 
             recurse(filtered, {}, function (o, key, state) {
                 if ((key === '$ref') && (typeof o[key] === 'string') && (o[key].startsWith('#'))) {
