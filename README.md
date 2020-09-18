@@ -34,6 +34,7 @@ Options:
   --info           include complete info object with --valid           [boolean]
   --inverse, -i    output filtered elements only                       [boolean]
   --flags, -f      flags to filter by          [array] [default: ["x-internal"]]
+  --flagValues, -v flag String values to match             [array] [default: []]
   --checkTags      filter if flags given in --flags are in the tags array
                                                                        [boolean]
   --overrides, -o  prefixes used to override named properties[arr] [default: []]
