@@ -8,6 +8,7 @@ function filter(obj,options) {
 
     const defaults = {};
     defaults.flags = ['x-internal'];
+    defaults.flagValues = [];
     defaults.checkTags = false;
     defaults.inverse = false;
     defaults.strip = false;
@@ -28,7 +29,7 @@ function filter(obj,options) {
         }
 
         for (let flag of options.flags) {
-            if ((options.checkTags == false && (obj[key] && obj[key][flag])) || (options.checkTags && (obj[key] && obj[key].tags && Array.isArray(obj[key].tags) && obj[key].tags.includes(flag)))) {
+            if ((options.checkTags == false && (obj[key] && ((options.flagValues.length == 0 && obj[key][flag]) || options.flagValues.includes(obj[key][flag])))) || (options.checkTags && (obj[key] && obj[key].tags && Array.isArray(obj[key].tags) && obj[key].tags.includes(flag)))) {
                 if (options.inverse) {
                     if (options.strip) {
                         delete obj[key][flag];
