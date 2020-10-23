@@ -9,7 +9,7 @@ const httpOperations = [ 'get', 'put', 'post', 'delete', 'options', 'head', 'pat
 function securityIncludesScope(securitySchemes, scope) {
 
     // Make sure we've been given an array of securitySchemes
-    if(! Array.isArray(securitySchemes))
+    if(!Array.isArray(securitySchemes))
         return false;
 
     return securitySchemes.some(scheme => {
@@ -46,10 +46,10 @@ function filter(obj,options) {
         }
 
         for (let flag of options.flags) {
-            if ((options.checkTags == false && options.checkScopes == false && (obj[key] && ((options.flagValues.length == 0 && obj[key][flag]) || options.flagValues.includes(obj[key][flag])))) || 
+            if ((options.checkTags == false && options.checkScopes == false && (obj[key] && ((options.flagValues.length == 0 && obj[key][flag]) || options.flagValues.includes(obj[key][flag])))) ||
                 (options.checkTags && (obj[key] && obj[key].tags && Array.isArray(obj[key].tags) && obj[key].tags.includes(flag))) ||
                 (options.checkScopes && (obj[key] && obj[key].security && securityIncludesScope(obj[key].security, flag))) ||
-                (options.checkScopes && (httpOperations.includes(key) && ! obj[key].security && globalSecurity && securityIncludesScope(globalSecurity, flag)))) {
+                (options.checkScopes && (httpOperations.includes(key) && !obj[key].security && globalSecurity && securityIncludesScope(globalSecurity, flag)))) {
                 if (options.inverse) {
                     if (options.strip) {
                         delete obj[key][flag];
