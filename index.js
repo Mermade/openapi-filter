@@ -4,16 +4,33 @@ const recurse = require('reftools/lib/recurse.js').recurse;
 const clone = require('reftools/lib/clone.js').clone;
 const jptr = require('reftools/lib/jptr.js').jptr;
 
+const httpOperations = [ 'get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace' ];
+
+function securityIncludesScope(securitySchemes, scope) {
+
+    // Make sure we've been given an array of securitySchemes
+    if(! Array.isArray(securitySchemes))
+        return false;
+
+    return securitySchemes.some(scheme => {
+        return Object.keys(scheme).some(key => {
+            return Object.values(scheme[key]).some(value => value == scope);
+        });
+    });
+}
 function filter(obj,options) {
 
     const defaults = {};
     defaults.flags = ['x-internal'];
     defaults.flagValues = [];
     defaults.checkTags = false;
+    defaults.checkScopes = false;
     defaults.inverse = false;
     defaults.strip = false;
     defaults.overrides = [];
     options = Object.assign({},defaults,options);
+
+    const globalSecurity=obj.security || null;
 
     let src = clone(obj);
     let filtered = {};
@@ -29,7 +46,10 @@ function filter(obj,options) {
         }
 
         for (let flag of options.flags) {
-            if ((options.checkTags == false && (obj[key] && ((options.flagValues.length == 0 && obj[key][flag]) || options.flagValues.includes(obj[key][flag])))) || (options.checkTags && (obj[key] && obj[key].tags && Array.isArray(obj[key].tags) && obj[key].tags.includes(flag)))) {
+            if ((options.checkTags == false && options.checkScopes == false && (obj[key] && ((options.flagValues.length == 0 && obj[key][flag]) || options.flagValues.includes(obj[key][flag])))) || 
+                (options.checkTags && (obj[key] && obj[key].tags && Array.isArray(obj[key].tags) && obj[key].tags.includes(flag))) ||
+                (options.checkScopes && (obj[key] && obj[key].security && securityIncludesScope(obj[key].security, flag))) ||
+                (options.checkScopes && (httpOperations.includes(key) && ! obj[key].security && globalSecurity && securityIncludesScope(globalSecurity, flag)))) {
                 if (options.inverse) {
                     if (options.strip) {
                         delete obj[key][flag];

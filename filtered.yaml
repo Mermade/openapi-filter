@@ -1,0 +1,1249 @@
+paths:
+  /academicdepartment:
+    post:
+      tags:
+        - AcademicDepartment
+        - AcademicDepartmentBulk
+      summary: Create one or more AcademicDepartments
+      description: Bulk operation to create one or more AcademicDepartments which group <a href="#tagProviderCourse">ProviderCourses</a> and  <a href="#tagTeachingGroup">TeachingGroups</a> according to SubjectArea.</p>
+      operationId: createAcademicDepartments
+      parameters:
+        - $ref: "#/paths/~1organisation/post/parameters/0"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+      requestBody:
+        description: CRUD operation on AcademicDepartment
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                AcademicDepartments:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+            example:
+              AcademicDepartments:
+                AcademicDepartment:
+                  - AcademicDepartmentRefId: 2ffb63b4-cfef-4820-8501-e7d1e54555cb
+                    Name: Science Department
+                    Provider:
+                      RefId: "9651"
+                    StaffList:
+                      StaffMember:
+                        - RefId: 44fb63b4-cfef-4820-8501-e7d1e54555cb
+                          Name: Bobby Test
+                          Role: "1205"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                AcademicDepartments:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+            example: >-
+              <AcademicDepartments>
+                <AcademicDepartment>
+                  </AcademicDepartmentRefId>2ffb63b4-cfef-4820-8501-e7d1e54555cb</AcademicDepartmentRefId>
+                  </Name>Science Department</Name>
+                  <Provider>
+                    </RefId>9561</RefId>
+                  </Provider>
+                  <StaffList>
+                    <StaffMember>
+                      </RefId>44fb63b4-cfef-4820-8501-e7d1e54555cb</RefId>
+                      </Name>Bobby Test</Name>
+                      <Role>1205</Role>
+                    </StaffMember>
+                  </StaffList>
+                </AcademicDepartment>
+              </AcademicDepartments>
+      responses:
+        "200":
+          description: Create successful; returns created objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          description: Some objects created, some creates failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - type: object
+                      title: Error
+                      properties:
+                        Error:
+                          $ref: "#/paths/~1organisation/post/responses/default/content/application~1json/schema/items/anyOf/0/properties/Error"
+                    - type: object
+                      title: AcademicDepartment
+                      properties:
+                        AcademicDepartment:
+                          $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                - AcademicDepartment:
+                    AcademicDepartmentRefId: 2ffb63b4-cfef-4820-8501-e7d1e54555cb
+                    Name: Science Department
+                    Provider:
+                      RefId: "9651"
+                    StaffList:
+                      StaffMember:
+                        - RefId: 44fb63b4-cfef-4820-8501-e7d1e54555cb
+                          Name: Bobby Test
+                          Role: "1205"
+                - Error:
+                    error: 1009
+                    when: 2020-07-16T20:00:46.000Z
+                    errorstr: "Bad field: PersonInfo-Name-FamilyName: missing required field PersonInfo-Name-FamilyName (LastName) 'None'"
+                    localId: ST-002
+                    refId: null
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  Response:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: object
+                          title: Error
+                          properties:
+                            Error:
+                              $ref: "#/paths/~1organisation/post/responses/default/content/application~1xml/schema/properties/Response/items/anyOf/0/properties/Error"
+                        - type: object
+                          title: AcademicDepartment
+                          properties:
+                            AcademicDepartment:
+                              $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example: >-
+                <Response>
+                  <AcademicDepartment>
+                    <AcademicDepartmentRefId>2ffb63b4-cfef-4820-8501-e7d1e54555cb</AcademicDepartmentRefId>
+                    <Name>Science Department</Name>
+                    <Provider>
+                      </RefId>9651</RefId>
+                    </Provider>
+                    <StaffList>
+                      <StaffMember>
+                        </RefId>44fb63b4-cfef-4820-8501-e7d1e54555cb</RefId>
+                        </Name>Bobby Test</Name>
+                      </StaffMember>
+                    </StaffList>
+                  </AcademicDepartment>
+                  <Error>
+                    <error>1009</error>
+                    <when>2020-07-16T20:00:46.000Z</when>
+                    <errorstr>Bad field: PersonInfo-Name-FamilyName: missing required field PersonInfo-Name-FamilyName (LastName) 'None'</errorstr>
+                    <localId>ST-002</localId>
+                    <refId/>
+                  </Error>      
+                </Response>
+    get:
+      tags:
+        - AcademicDepartment
+        - AcademicDepartmentBulk
+      summary: Retrieve all AcademicDepartments
+      description: Bulk operation to retrieve all available AcademicDepartments, within the scope of the given Provider.  Each AcademicDepartment groups <a href="#tagProviderCourse">ProviderCourses</a> and  <a href="#tagTeachingGroup">TeachingGroups</a> according to SubjectArea.</p>
+      operationId: getAcademicDepartments
+      parameters:
+        - $ref: "#/paths/~1organisation/get/parameters/0"
+        - $ref: "#/paths/~1search/get/parameters/4"
+        - $ref: "#/paths/~1search/get/parameters/3"
+        - $ref: "#/paths/~1organisation/get/parameters/3"
+        - $ref: "#/paths/~1search/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/6"
+        - $ref: "#/paths/~1organisation/get/parameters/7"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation/get/responses/default"
+    put:
+      tags:
+        - AcademicDepartment
+        - AcademicDepartmentBulk
+      summary: Update one or more AcademicDepartments
+      description: Bulk operation to update all available AcademicDepartments, within the scope of the given Provider.  Each AcademicDepartment groups <a href="#tagProviderCourse">ProviderCourses</a> and  <a href="#tagTeachingGroup">TeachingGroups</a> according to SubjectArea.</p>
+      operationId: updateAcademicDepartments
+      parameters:
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+      requestBody:
+        description: CRUD operation on AcademicDepartment
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                AcademicDepartments:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+            example:
+              $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                AcademicDepartments:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+            example:
+              $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1xml/example"
+      responses:
+        "200":
+          description: Update successful; returns updated objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          description: Some objects updated, some updates failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - type: object
+                      title: Error
+                      properties:
+                        Error:
+                          $ref: "#/paths/~1organisation/post/responses/default/content/application~1json/schema/items/anyOf/0/properties/Error"
+                    - type: object
+                      title: AcademicDepartment
+                      properties:
+                        AcademicDepartment:
+                          $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment/post/responses/default/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  Response:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: object
+                          title: Error
+                          properties:
+                            Error:
+                              $ref: "#/paths/~1organisation/post/responses/default/content/application~1xml/schema/properties/Response/items/anyOf/0/properties/Error"
+                        - type: object
+                          title: AcademicDepartment
+                          properties:
+                            AcademicDepartment:
+                              $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment/post/responses/default/content/application~1xml/example"
+    patch:
+      tags:
+        - AcademicDepartment
+        - AcademicDepartmentBulk
+      summary: Patch one or more AcademicDepartments
+      description: Bulk operation to update one or more fields of one or more AcademicDepartments, within the scope of the given Provider.  Each AcademicDepartment groups <a href="#tagProviderCourse">ProviderCourses</a> and  <a href="#tagTeachingGroup">TeachingGroups</a> according to SubjectArea.</p>
+      operationId: patchAcademicDepartments
+      parameters:
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+      requestBody:
+        description: CRUD operation on AcademicDepartment
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                AcademicDepartments:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/AcademicDepartments
+            example:
+              $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                AcademicDepartments:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/AcademicDepartments
+            example:
+              $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1xml/example"
+      responses:
+        "200":
+          description: Patch successful; returns patched objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartments:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartments
+              example:
+                $ref: "#/paths/~1academicdepartment/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          description: Some objects patched, some patches failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - type: object
+                      title: Error
+                      properties:
+                        Error:
+                          $ref: "#/paths/~1organisation/post/responses/default/content/application~1json/schema/items/anyOf/0/properties/Error"
+                    - type: object
+                      title: AcademicDepartment
+                      properties:
+                        AcademicDepartment:
+                          $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment/post/responses/default/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  Response:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: object
+                          title: Error
+                          properties:
+                            Error:
+                              $ref: "#/paths/~1organisation/post/responses/default/content/application~1xml/schema/properties/Response/items/anyOf/0/properties/Error"
+                        - type: object
+                          title: AcademicDepartment
+                          properties:
+                            AcademicDepartment:
+                              $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment/post/responses/default/content/application~1xml/example"
+  "/academicdepartment/{AcademicDepartmentRefId}":
+    get:
+      tags:
+        - AcademicDepartment
+        - AcademicDepartmentSingle
+      summary: Retrieve a single AcademicDepartment
+      description: Retrieve a particular AcademicDepartment which groups <a href="#tagProviderCourse">ProviderCourses</a> and  <a href="#tagTeachingGroup">TeachingGroups</a> according to SubjectArea.</p>
+      operationId: getAcademicDepartment
+      parameters:
+        - $ref: "#/paths/~1organisation/get/parameters/0"
+        - $ref: "#/paths/~1search/get/parameters/4"
+        - $ref: "#/paths/~1search/get/parameters/3"
+        - $ref: "#/paths/~1organisation/get/parameters/3"
+        - $ref: "#/paths/~1search/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/6"
+        - $ref: "#/paths/~1organisation/get/parameters/7"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - name: AcademicDepartmentRefId
+          in: path
+          description: <p>The ID (GUID) assigned to uniquely identify this AcademicDepartment.</p>
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartment:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                AcademicDepartment:
+                  AcademicDepartmentRefId: 2ffb63b4-cfef-4820-8501-e7d1e54555cb
+                  Name: Science Department
+                  Provider:
+                    RefId: "9651"
+                  StaffList:
+                    StaffMember:
+                      - RefId: 44fb63b4-cfef-4820-8501-e7d1e54555cb
+                        Name: Bobby Test
+                        Role: "1205"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartment:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example: >-
+                <AcademicDepartment>
+                  </AcademicDepartmentRefId>2ffb63b4-cfef-4820-8501-e7d1e54555cb</AcademicDepartmentRefId>
+                  </Name>Science Department</Name>
+                  <Provider>
+                    </RefId>9651</RefId>
+                  </Provider>
+                  <StaffList>
+                    <StaffMember>
+                      </RefId>44fb63b4-cfef-4820-8501-e7d1e54555cb</RefId>
+                      </Name>Bobby Test</Name>
+                      <Role>1205</Role>
+                    </StaffMember>
+                  </StaffList>
+                </AcademicDepartment>
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation/get/responses/default"
+    put:
+      tags:
+        - AcademicDepartment
+        - AcademicDepartmentSingle
+      summary: Update a single AcademicDepartment
+      description: Update a particular AcademicDepartment which groups <a href="#tagProviderCourse">ProviderCourses</a> and  <a href="#tagTeachingGroup">TeachingGroups</a> according to SubjectArea.</p>
+      operationId: updateAcademicDepartment
+      parameters:
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - name: AcademicDepartmentRefId
+          in: path
+          description: <p>The ID (GUID) assigned to uniquely identify this AcademicDepartment.</p>
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: CRUD operation on AcademicDepartment
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                AcademicDepartment:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+            example:
+              $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                AcademicDepartment:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+            example:
+              $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1xml/example"
+      responses:
+        "200":
+          description: Update successful; returns updated object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartment:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartment:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation~1%7BOrganisationRefId%7D/put/responses/default"
+    patch:
+      tags:
+        - AcademicDepartment
+        - AcademicDepartmentSingle
+      summary: Patch a single AcademicDepartment
+      description: Update one or more fields of a particular AcademicDepartment which groups <a href="#tagProviderCourse">ProviderCourses</a> and  <a href="#tagTeachingGroup">TeachingGroups</a> according to SubjectArea.</p>
+      operationId: patchAcademicDepartment
+      parameters:
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - name: AcademicDepartmentRefId
+          in: path
+          description: <p>The ID (GUID) assigned to uniquely identify this AcademicDepartment.</p>
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: CRUD operation on AcademicDepartment
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                AcademicDepartment:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/AcademicDepartment
+            example:
+              $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                AcademicDepartment:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/AcademicDepartment
+            example:
+              $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1xml/example"
+      responses:
+        "200":
+          description: Patch successful; returns patched object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartment:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  AcademicDepartment:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/AcademicDepartment
+              example:
+                $ref: "#/paths/~1academicdepartment~1%7BAcademicDepartmentRefId%7D/get/responses/200/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation~1%7BOrganisationRefId%7D/patch/responses/default"
+  /providercourse:
+    post:
+      tags:
+        - ProviderCourse
+        - ProviderCourseBulk
+      summary: Create one or more ProviderCourses
+      description: <p>Bulk operation to create one or more provider defined Courses that Students enrol in,  may be assessed for, and achieve passes in.</p>
+      operationId: createProviderCourses
+      parameters:
+        - $ref: "#/paths/~1organisation/post/parameters/0"
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+      requestBody:
+        description: CRUD operation on ProviderCourse
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ProviderCourses:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+            example:
+              ProviderCourses:
+                ProviderCourse:
+                  - ProviderCourseRefId: 9d75101a-8c3d-00aa-001a-0000a2e35b35
+                    ProviderCourseLocalId: 12CHEM
+                    Provider:
+                      RefId: "9651"
+                    Curriculum: NZC
+                    SubjectAreaList:
+                      SubjectArea:
+                        - CHEM
+                    YearLevelList:
+                      YearLevel:
+                        - 12
+                    Title: Year 12 Chemistry
+                    Description: Organic & Inorganic Chemistry for NCEA Level 2
+                    Duration: 35
+                    Credits: 11
+                    LearningStandardList:
+                      LearningStandardRefId:
+                        - NC-91165-2
+                        - NC-91166-2
+                        - NC-91167-2
+          application/xml:
+            schema:
+              type: object
+              properties:
+                ProviderCourses:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+            example: >-
+              <ProviderCourses>
+                <ProviderCourse>
+                  </ProviderCourseRefId>9d75101a-8c3d-00aa-001a-0000a2e35b35</ProviderCourseRefId>
+                  </ProviderCourseLocalId>12CHEM</ProviderCourseLocalId>
+                  <Provider>
+                    </RefId>101a8c3d-00aa-001a-0000-a2e35b359d75</RefId>
+                    </LocalId>208</LocalId>
+                  </Provider>
+                  </Curriculum>NZC</Curriculum>
+                  <SubjectAreaList>
+                    </SubjectArea>CHEM</SubjectArea>
+                  </SubjectAreaList>
+                  <YearLevelList>
+                    </YearLevel>12</YearLevel>
+                  </YearLevelList>
+                  </Title>Year 12 Chemistry</Title>
+                  </Description>Organic & Inorganic Chemistry for NCEA Level 2</Description>
+                  </Duration>35</Duration>
+                  </Credits>11</Credits>
+                  <LanguageOfInstructionList>
+                    <Language>
+                      </Code>NZS01112</Code>
+                      </Level>1</Level>
+                    </Language>
+                  </LanguageOfInstructionList>
+                  <LearningStandardList>
+                    <LearningStandardList>
+                      <LearningStandardRefId>NC-91165-2</LocalId>
+                      <LearningStandardRefId>NC-91166-2</LocalId>
+                      <LearningStandardRefId>MC-91167-2</LocalId>
+                    </LearningStandardList>
+                  </LearningStandardList>
+                </ProviderCourse>
+              </ProviderCourses>
+      responses:
+        "200":
+          description: All objects created; returns created objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          description: Some objects created, some creates failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - type: object
+                      title: Error
+                      properties:
+                        Error:
+                          $ref: "#/paths/~1organisation/post/responses/default/content/application~1json/schema/items/anyOf/0/properties/Error"
+                    - type: object
+                      title: ProviderCourse
+                      properties:
+                        ProviderCourse:
+                          $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                - ProviderCourse:
+                    ProviderCourseRefId: 9d75101a-8c3d-00aa-001a-0000a2e35b35
+                    ProviderCourseLocalId: 12CHEM
+                    Provider:
+                      RefId: "9651"
+                    Curriculum: NZC
+                    SubjectAreaList:
+                      SubjectArea:
+                        - CHEM
+                    YearLevelList:
+                      YearLevel:
+                        - 12
+                    Title: Year 12 Chemistry
+                    Description: Organic & Inorganic Chemistry for NCEA Level 2
+                    Duration: 35
+                    Credits: 11
+                    LearningStandardList:
+                      LearningStandardRefId:
+                        - NC-91165-2
+                        - NC-91166-2
+                        - NC-91167-2
+                - Error:
+                    error: 1009
+                    when: 2020-07-16T20:00:46.000Z
+                    errorstr: "Bad field: PersonInfo-Name-FamilyName: missing required field PersonInfo-Name-FamilyName (LastName) 'None'"
+                    localId: ST-002
+                    refId: null
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  Response:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: object
+                          title: Error
+                          properties:
+                            Error:
+                              $ref: "#/paths/~1organisation/post/responses/default/content/application~1xml/schema/properties/Response/items/anyOf/0/properties/Error"
+                        - type: object
+                          title: ProviderCourse
+                          properties:
+                            ProviderCourse:
+                              $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example: >-
+                <Response>
+                  <ProviderCourse>
+                    </ProviderCourseRefId>9d75101a-8c3d-00aa-001a-0000a2e35b35</ProviderCourseRefId>
+                    </ProviderCourseLocalId>12CHEM</ProviderCourseLocalId>
+                    <Provider>
+                      </RefId>101a8c3d-00aa-001a-0000-a2e35b359d75</RefId>
+                      </LocalId>208</LocalId>
+                    </Provider>
+                    </Curriculum>NZC</Curriculum>
+                    <SubjectAreaList>
+                      </SubjectArea>CHEM</SubjectArea>
+                    </SubjectAreaList>
+                    <YearLevelList>
+                      </YearLevel>12</YearLevel>
+                    </YearLevelList>
+                    </Title>Year 12 Chemistry</Title>
+                    </Description>Organic & Inorganic Chemistry for NCEA Level 2</Description>
+                    </Duration>35</Duration>
+                    </Credits>11</Credits>
+                    <LanguageOfInstructionList>
+                      <Language>
+                        </Code>NZS01112</Code>
+                        </Level>1</Level>
+                      </Language>
+                    </LanguageOfInstructionList>
+                    <LearningStandardList>
+                      <LearningStandardList>
+                        <LearningStandardRefId>NC-91165-2</LocalId>
+                        <LearningStandardRefId>NC-91166-2</LocalId>
+                        <LearningStandardRefId>MC-91167-2</LocalId>
+                      </LearningStandardList>
+                    </LearningStandardList>
+                  </ProviderCourse>  
+                  <Error>
+                    <error>1009</error>
+                    <when>2020-07-16T20:00:46.000Z</when>
+                    <errorstr>Bad field: PersonInfo-Name-FamilyName: missing required field PersonInfo-Name-FamilyName (LastName) 'None'</errorstr>
+                    <localId>ST-002</localId>
+                    <refId/>
+                  </Error>      
+                </Response>
+    get:
+      tags:
+        - ProviderCourse
+        - ProviderCourseBulk
+      summary: Retrieve one or more ProviderCourses
+      description: "<p>Bulk operation to retrieve one or more provider defined Courses that Students enrol in,  may be assessed for, and achieve passes in.</p>    "
+      operationId: getProviderCourses
+      parameters:
+        - $ref: "#/paths/~1organisation/get/parameters/0"
+        - $ref: "#/paths/~1search/get/parameters/4"
+        - $ref: "#/paths/~1search/get/parameters/3"
+        - $ref: "#/paths/~1organisation/get/parameters/3"
+        - $ref: "#/paths/~1search/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/6"
+        - $ref: "#/paths/~1organisation/get/parameters/7"
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation/get/responses/default"
+    put:
+      tags:
+        - ProviderCourse
+        - ProviderCourseBulk
+      summary: Update one or more ProviderCourses
+      description: "<p>Bulk operation to update one or more provider defined Courses that Students enrol in,  may be assessed for, and achieve passes in.</p>    "
+      operationId: updateProviderCourses
+      parameters:
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+      requestBody:
+        description: CRUD operation on ProviderCourse
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ProviderCourses:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+            example:
+              $ref: "#/paths/~1providercourse/post/requestBody/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                ProviderCourses:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+            example:
+              $ref: "#/paths/~1providercourse/post/requestBody/content/application~1xml/example"
+      responses:
+        "200":
+          description: All objects updated; returns updated objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          description: Some objects updated, some updates failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - type: object
+                      title: Error
+                      properties:
+                        Error:
+                          $ref: "#/paths/~1organisation/post/responses/default/content/application~1json/schema/items/anyOf/0/properties/Error"
+                    - type: object
+                      title: ProviderCourse
+                      properties:
+                        ProviderCourse:
+                          $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse/post/responses/default/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  Response:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: object
+                          title: Error
+                          properties:
+                            Error:
+                              $ref: "#/paths/~1organisation/post/responses/default/content/application~1xml/schema/properties/Response/items/anyOf/0/properties/Error"
+                        - type: object
+                          title: ProviderCourse
+                          properties:
+                            ProviderCourse:
+                              $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse/post/responses/default/content/application~1xml/example"
+    patch:
+      tags:
+        - ProviderCourse
+        - ProviderCourseBulk
+      summary: Patch one or more ProviderCourses
+      description: <p>Bulk operation to update one or more fields of one or more provider defined Courses that Students enrol in, may be assessed for, and achieve passes in.</p>
+      operationId: patchProviderCourses
+      parameters:
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+      requestBody:
+        description: CRUD operation on ProviderCourse
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ProviderCourses:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/ProviderCourses
+            example:
+              $ref: "#/paths/~1providercourse/post/requestBody/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                ProviderCourses:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/ProviderCourses
+            example:
+              $ref: "#/paths/~1providercourse/post/requestBody/content/application~1xml/example"
+      responses:
+        "200":
+          description: All objects patched; returns patched objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  ProviderCourses:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourses
+              example:
+                $ref: "#/paths/~1providercourse/post/requestBody/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          description: Some objects patched, some patches failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - type: object
+                      title: Error
+                      properties:
+                        Error:
+                          $ref: "#/paths/~1organisation/post/responses/default/content/application~1json/schema/items/anyOf/0/properties/Error"
+                    - type: object
+                      title: ProviderCourse
+                      properties:
+                        ProviderCourse:
+                          $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse/post/responses/default/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  Response:
+                    type: array
+                    items:
+                      anyOf:
+                        - type: object
+                          title: Error
+                          properties:
+                            Error:
+                              $ref: "#/paths/~1organisation/post/responses/default/content/application~1xml/schema/properties/Response/items/anyOf/0/properties/Error"
+                        - type: object
+                          title: ProviderCourse
+                          properties:
+                            ProviderCourse:
+                              $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse/post/responses/default/content/application~1xml/example"
+  "/providercourse/{ProviderCourseRefId}":
+    get:
+      tags:
+        - ProviderCourse
+        - ProviderCourseSingle
+      summary: Retrieve a single ProviderCourse
+      description: "<p>Retrieve a particular provider defined Course that Students enrol in,  may be assessed for, and achieve passes in.</p>    "
+      operationId: getProviderCourse
+      parameters:
+        - $ref: "#/paths/~1organisation/get/parameters/0"
+        - $ref: "#/paths/~1search/get/parameters/4"
+        - $ref: "#/paths/~1search/get/parameters/3"
+        - $ref: "#/paths/~1organisation/get/parameters/3"
+        - $ref: "#/paths/~1search/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/5"
+        - $ref: "#/paths/~1organisation/get/parameters/6"
+        - $ref: "#/paths/~1organisation/get/parameters/7"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - name: ProviderCourseRefId
+          in: path
+          description: <p>The ID (GUID) that uniquely identifies the Provider defined Course.</p>
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ProviderCourse:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                ProviderCourse:
+                  ProviderCourseRefId: 9d75101a-8c3d-00aa-001a-0000a2e35b35
+                  ProviderCourseLocalId: 12CHEM
+                  Provider:
+                    RefId: "9651"
+                  Curriculum: NZC
+                  SubjectAreaList:
+                    SubjectArea:
+                      - CHEM
+                  YearLevelList:
+                    YearLevel:
+                      - 12
+                  Title: Year 12 Chemistry
+                  Description: Organic & Inorganic Chemistry for NCEA Level 2
+                  Duration: 35
+                  Credits: 11
+                  LearningStandardList:
+                    LearningStandardRefId:
+                      - NC-91165-2
+                      - NC-91166-2
+                      - NC-91167-2
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  ProviderCourse:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example: >-
+                <ProviderCourse>
+                  </ProviderCourseRefId>9d75101a-8c3d-00aa-001a-0000a2e35b35</ProviderCourseRefId>
+                  </ProviderCourseLocalId>12CHEM</ProviderCourseLocalId>
+                  <Provider>
+                    </RefId>101a8c3d-00aa-001a-0000-a2e35b359d75</RefId>
+                    </LocalId>208</LocalId>
+                  </Provider>
+                  </Curriculum>NZC</Curriculum>
+                  <SubjectAreaList>
+                    </SubjectArea>CHEM</SubjectArea>
+                  </SubjectAreaList>
+                  <YearLevelList>
+                    </YearLevel>12</YearLevel>
+                  </YearLevelList>
+                  </Title>Year 12 Chemistry</Title>
+                  </Description>Organic & Inorganic Chemistry for NCEA Level 2</Description>
+                  </Duration>35</Duration>
+                  </Credits>11</Credits>
+                  <LanguageOfInstructionList>
+                    <Language>
+                      </Code>NZS01112</Code>
+                      </Level>1</Level>
+                    </Language>
+                  </LanguageOfInstructionList>
+                  <LearningStandardList>
+                    <LearningStandardRefId>NC-91165-2</LocalId>
+                    <LearningStandardRefId>NC-91166-2</LocalId>
+                    <LearningStandardRefId>MC-91167-2</LocalId>
+                  </LearningStandardList>
+                </ProviderCourse>  
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation/get/responses/default"
+    put:
+      tags:
+        - ProviderCourse
+        - ProviderCourseSingle
+      summary: Update a single ProviderCourse
+      description: <p>Update one or more fields of a particular provider defined Course that Students enrol in,  may be assessed for, and achieve passes in.</p>
+      operationId: updateProviderCourse
+      parameters:
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - name: ProviderCourseRefId
+          in: path
+          description: <p>The ID (GUID) that uniquely identifies the Provider defined Course.</p>
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: CRUD operation on ProviderCourse
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ProviderCourse:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+            example:
+              $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                ProviderCourse:
+                  $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+            example:
+              $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1xml/example"
+      responses:
+        "200":
+          description: Update successful; returns updated object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ProviderCourse:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  ProviderCourse:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation~1%7BOrganisationRefId%7D/put/responses/default"
+    patch:
+      tags:
+        - ProviderCourse
+        - ProviderCourseSingle
+      summary: Patch a single ProviderCourse
+      description: <p>Update one or more fields of a particular provider defined Course that Students enrol in,  may be assessed for, and achieve passes in.</p>
+      operationId: patchProviderCourse
+      parameters:
+        - $ref: "#/paths/~1search/get/parameters/6"
+        - $ref: "#/paths/~1staffpersonal/post/parameters/2"
+        - name: ProviderCourseRefId
+          in: path
+          description: <p>The ID (GUID) that uniquely identifies the Provider defined Course.</p>
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: CRUD operation on ProviderCourse
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ProviderCourse:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/ProviderCourse
+            example:
+              $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1json/example"
+          application/xml:
+            schema:
+              type: object
+              properties:
+                ProviderCourse:
+                  $ref: jsonSchema.NZ.update.yaml#/properties/ProviderCourse
+            example:
+              $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1xml/example"
+      responses:
+        "200":
+          description: Patch successful; returns patched object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ProviderCourse:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1json/example"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  ProviderCourse:
+                    $ref: jsonSchema.NZ.create.yaml#/properties/ProviderCourse
+              example:
+                $ref: "#/paths/~1providercourse~1%7BProviderCourseRefId%7D/get/responses/200/content/application~1xml/example"
+        "401":
+          $ref: "#/paths/~1search/get/responses/401"
+        "422":
+          $ref: "#/paths/~1search/get/responses/422"
+        default:
+          $ref: "#/paths/~1organisation~1%7BOrganisationRefId%7D/patch/responses/default"

@@ -28,6 +28,8 @@ let argv = require('yargs')
     .array('flagValues')
     .alias('flagValues', 'v')
     .describe('flagValues', 'flag string values to consider as a filter match (in addition to matching on boolean types)')
+    .array('scopes')
+    .describe('scopes', 'filter based upon oauth security scheme scopes, instead of \'x-internal\' flags')
     .default('flagValues', [])
     .boolean('checkTags')
     .describe('checkTags', 'filter if flags given in --flags are in the tags array')
@@ -50,6 +52,12 @@ let argv = require('yargs')
     .help()
     .version()
     .argv;
+
+//  --scopes on the cmdline  turns on checkScopes options, and the listed scopes move to flags; to make the code simpler...
+if(argv.scopes) {
+    argv.flags = argv.scopes;
+    argv.checkScopes = true;
+}
 
 let s = fs.readFileSync(argv.infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
