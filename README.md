@@ -54,6 +54,12 @@ use `--` to separate flags or other array options from following options, i.e.:
 
 or
 
+`openapi-filter --flags x-private x-hidden -- source.yaml target.json`
+
+for the target to be written as a JSON file
+
+or
+
 ```javascript
 let openapiFilter = require('openapi-filter');
 let options = {}; // defaults are shown
