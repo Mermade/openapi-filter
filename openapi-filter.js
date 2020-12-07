@@ -64,44 +64,48 @@ let s = fs.readFileSync(argv.infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
 let oasSpec = openapiFilter.filter(obj,argv);
 
-// All that filtering, may mean we have to prune the /components/schemas...
+// All that filtering, may mean we have to prune the /components/schemas  and tags....
 let usedSchemas = [];
+var additions=0;
+
+// go looking for $refs,put the target schema into the list...
+let checkRef = (obj, key, state) => {
+    if(obj.$ref && obj.$ref.startsWith('#/components/schemas/')) {
+
+        if(! usedSchemas.includes(obj.$ref.substring(21))) {
+            usedSchemas.push(obj.$ref.substring(21));
+            additions++; // keep track of additions made (in GLOBAL variable, naughty, naughty)
+        }
+    }
+};
 
 // check oasSpec.paths to get the set of components/schemas that're actually used...
 Object.keys(oasSpec.paths).forEach((key, ndx, keys) => {
-
-    recurse(oasSpec.paths[key], {}, (obj, key, state) => {
-
-        // go looking for $refs
-        if(obj.$ref && obj.$ref.startsWith('#/components/schemas/')) {
-
-            if(! usedSchemas.includes(obj.$ref.substring(21))) {
-                usedSchemas.push(obj.$ref.substring(21));
-            }
-        }
-    });
+    recurse(oasSpec.paths[key], {}, checkRef);
 });
 
 
+// check all the various components sections (parameters, responses, requestBodies, callbacks, etc)
+// for more $refs to components/schemas 
+Object.keys(oasSpec.components).forEach((section, sNdx, sections) => {
+
+    // don't do component/schemas ... that has to be done carefully in just a sec
+    if(section != 'schemas') {
+
+        Object.keys(oasSpec.components[section]).forEach((key, kNdx, keys) => {
+            recurse(oasSpec.components[section][key], {}, checkRef);
+        });
+    }
+});
+
 // go looking for $refs in the set of usedSchemas...and augment the set of usedSchemas as appropriate
-var additions;
 do {    // keep going until we don't add any more schemas; cycles will break this.
     additions = 0;
     usedSchemas.forEach((key, ndx, keys) => {
-
-        recurse(oasSpec.components.schemas[key], {}, (obj, key, state) => {
-
-            // go looking for $refs
-            if(obj.$ref && obj.$ref.startsWith('#/components/schemas/')) {
-
-                if(! usedSchemas.includes(obj.$ref.substring(21))) {
-                    usedSchemas.push(obj.$ref.substring(21));
-                    additions++;
-                }
-            }
-        });
+        recurse(oasSpec.components.schemas[key], {}, checkRef);
     });
 } while (additions > 0);
+
 
 // prune the set of schemas in the original oasSpec, to be only the ones we're using...
 Object.keys(oasSpec.components.schemas).forEach((key, ndx, keys) => {
@@ -112,6 +116,29 @@ Object.keys(oasSpec.components.schemas).forEach((key, ndx, keys) => {
 });
 
 
+// Now check for tags...
+let usedTagNames = []
+let checkTags = (obj, key, state) => {
+    if(obj.tags) {
+        obj.tags.forEach((tag, tNdx, tags) => {
+            if(! usedTagNames.includes(tag)) {
+                usedTagNames.push(tag);
+            }    
+        });
+    }
+};
+// check oasSpec.paths to get the set of tags that're actually used...
+Object.keys(oasSpec.paths).forEach((key, ndx, keys) => {
+    recurse(oasSpec.paths[key], {}, checkTags);
+});
+
+// assemble a new set of tags, to be only the ones we're using...
+let newTagDefns = [];
+oasSpec.tags.forEach((tag, tNdx, tags) => {
+    if(usedTagNames.includes(tag.name) || tag.name.endsWith("Overview"))
+        newTagDefns.push(tag);
+});
+oasSpec.tags = newTagDefns;
 
 // Now write out the result in either YAML or JSON 
 if (argv.infile.indexOf('.json')>=0 || (argv.outfile && argv.outfile.indexOf('.json')>=0)) {
