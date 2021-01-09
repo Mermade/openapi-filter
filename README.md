@@ -39,7 +39,7 @@ Options:
                                                                        [boolean]
   --overrides, -o       prefixes used to override named properties[arr] [default: []]
   --methods, -m         OpenApi methods to filter by            [array] [default: []]
-  --operationIds, -id   penApi operationIds to filter by        [array] [default: []]
+  --operationIds, -id   OpenApi operationIds to filter by       [array] [default: []]
   --valid               try to ensure inverse output is valid               [boolean]
   --strip, -s           strip the flags from the finished product           [boolean]
   --servers             include complete servers object with --valid        [boolean]
