@@ -47,9 +47,22 @@ let argv = require('yargs')
     .number('maxAliasCount')
     .default('maxAliasCount',100)
     .describe('maxAliasCount','maximum YAML aliases allowed')
+    .alias('configFile', 'c')
+    .describe('configFile', 'The file & path for the filter options')
     .help()
     .version()
     .argv;
+
+// apply options from config file if present
+if (argv && argv.configFile) {
+    console.log('Options Config file used: ', argv.configFile);
+    try {
+        let configFileOptions = JSON.parse(fs.readFileSync(argv.configFile, 'utf8'));
+        argv = Object.assign({}, argv, configFileOptions);
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 let s = fs.readFileSync(argv.infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
