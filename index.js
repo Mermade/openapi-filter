@@ -91,22 +91,14 @@ function filter(obj,options) {
                     jptr(filtered,state.path,clone(obj[key]));
                 }
 
-                // Recursed to a level to deep, so parent state
+                // Recursed to a level too deep, so we go a level higher
                 const components = state.path.split('/');
                 components.pop(); // throw away last item
                 const parentstate = components.join('/')
-
-                // Loop over src to remove the item attached to the parent state
-                recurse(src,{},function(obj,key,state){
-                    if (state.path == parentstate)
-                    {
-                        delete obj[key];
-                    }
-                });
                 filteredpaths.push(parentstate);
 
-                // filteredpaths.push(state.path);
-                // delete obj[key];
+                // Use the parent state object to remove the item attached to the parent state
+                delete state.parent[state.pkey];
                 break;
             }
         }
