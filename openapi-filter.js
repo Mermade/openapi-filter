@@ -49,12 +49,17 @@ let argv = require('yargs')
     .describe('maxAliasCount','maximum YAML aliases allowed')
     .alias('configFile', 'c')
     .describe('configFile', 'The file & path for the filter options')
+    .boolean('verbose')
+    .describe('verbose', 'Output more details of the filter process')
     .help()
     .version()
     .argv;
 
+if(argv.verbose) console.info('=== OpenAPI document fltering started ===','\n')
+
 // apply options from config file if present
 if (argv && argv.configFile) {
+    if(argv.verbose) console.warn('CONFIG File:  ' + argv.configFile)
     try {
         let configFileOptions = {}
         if (argv.configFile.indexOf('.json')>=0) {
@@ -67,6 +72,7 @@ if (argv && argv.configFile) {
         console.error(err)
     }
 }
+if(argv.verbose) console.info('IN File:      ' + argv.infile)
 
 let s = fs.readFileSync(argv.infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
@@ -80,8 +86,11 @@ else {
 }
 if (argv.outfile) {
     fs.writeFileSync(argv.outfile,s,'utf8');
+
+    if(argv.verbose) console.info('OUT File:     ' + argv.outfile)
 }
 else {
     console.log(s);
 }
+if(argv.verbose) console.info('\x1b[32m%s\x1b[0m','\n','✅ OpenAPI document was filtered successful!')
 
