@@ -21,7 +21,7 @@ tests.forEach((test) => {
             try {
                 options = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'options.yaml'),'utf8'), {schema:'core'});
             }
-            catch (ex) {};
+            catch (ex) {}
 
             if (options.maxAliasCount) {
                 yaml.defaultOptions.maxAliasCount = options.maxAliasCount;
@@ -34,7 +34,7 @@ tests.forEach((test) => {
               output = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'output.yaml'),'utf8'), {schema:'core'});
               readOutput = true;
             }
-            catch (ex) {};
+            catch (ex) {}
 
             const result = filter.filter(input, options);
             if (!readOutput) {
