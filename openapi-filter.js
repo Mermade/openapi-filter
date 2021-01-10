@@ -55,9 +55,13 @@ let argv = require('yargs')
 
 // apply options from config file if present
 if (argv && argv.configFile) {
-    console.log('Options Config file used: ', argv.configFile);
     try {
-        let configFileOptions = JSON.parse(fs.readFileSync(argv.configFile, 'utf8'));
+        let configFileOptions = {}
+        if (argv.configFile.indexOf('.json')>=0) {
+            configFileOptions = JSON.parse(fs.readFileSync(argv.configFile, 'utf8'));
+        } else {
+            configFileOptions = yaml.parse(fs.readFileSync(argv.configFile, 'utf8'), {schema:'core'});
+        }
         argv = Object.assign({}, argv, configFileOptions);
     } catch (err) {
         console.error(err)
