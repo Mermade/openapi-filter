@@ -37,7 +37,7 @@ let argv = require('yargs')
     .describe('overrides', 'prefixes used to override named properties')
     .array('methods')
     .alias('methods', 'm')
-    .describe('methods', 'OpenApi methods to filter by')
+    .describe('methods', 'OpenAPI methods to filter by')
     .default('methods', [])
     .array('operationIds')
     .alias('operationIds', 'id')
@@ -75,4 +75,3 @@ if (argv.outfile) {
 else {
     console.log(s);
 }
-
