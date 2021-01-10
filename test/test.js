@@ -18,10 +18,20 @@ tests.forEach((test) => {
     describe(test, () => {
         it('should match expected output', (done) => {
             let options = {};
+            let configFile = null
             try {
-                options = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'options.yaml'),'utf8'), {schema:'core'});
+                // Load options.yaml
+                configFile = path.join(__dirname, test, 'options.yaml');
+                options = yaml.parse(fs.readFileSync(configFile, 'utf8'), {schema: 'core'});
+            } catch (ex) {
+                try {
+                    // Fallback to options.json
+                    configFile = path.join(__dirname, test, 'options.json');
+                    options = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+                } catch (ex) {
+                    // No options found. options = {} will be used
+                }
             }
-            catch (ex) {};
 
             if (options.maxAliasCount) {
                 yaml.defaultOptions.maxAliasCount = options.maxAliasCount;
@@ -34,7 +44,7 @@ tests.forEach((test) => {
               output = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'output.yaml'),'utf8'), {schema:'core'});
               readOutput = true;
             }
-            catch (ex) {};
+            catch (ex) {}
 
             const result = filter.filter(input, options);
             if (!readOutput) {

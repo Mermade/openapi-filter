@@ -1,27 +1,62 @@
+swagger: "2.0"
+schemes:
+  - http
+host: xkcd.com
+basePath: /
 info:
-  x-logo:
-    url: http://imgs.xkcd.com/static/terrible_small_logo.png
-    x-internal: true
+  description: Webcomic of romance, sarcasm, math, and language.
+  title: XKCD
+  version: 1.0.0
+  x-apisguru-categories:
+    - media
+  x-origin:
+    - format: swagger
+      url: https://raw.githubusercontent.com/APIs-guru/unofficial_openapi_specs/master/xkcd.com/1.0.0/swagger.yaml
+      version: "2.0"
+  x-providerName: xkcd.com
+  x-tags:
+    - humor
+    - comics
+  x-unofficialSpec: true
+externalDocs:
+  url: https://xkcd.com/json.html
+securityDefinitions: {}
 paths:
-  "/{comicId}/info.0.json":
-    x-internal: true
+  /info.0.json:
+    x-visibility: public
     get:
       description: >
-        Fetch comics and metadata by comic id.
+        Fetch current comic and metadata.
       parameters:
-        - in: path
-          name: comicId
-          required: true
-          type: number
-        - $ref: "#/definitions/hovertext"
+        - $ref: "#/definitions/comic"
       responses:
         "200":
           description: OK
           schema:
             $ref: "#/definitions/comic"
 definitions:
-  hovertext:
-    x-internal: true
+  comic:
     properties:
-      description:
+      alt:
         type: string
+      day:
+        type: string
+      img:
+        type: string
+      link:
+        type: string
+      month:
+        type: string
+      news:
+        type: string
+      num:
+        type: number
+      safe_title:
+        type: string
+      title:
+        type: string
+      transcript:
+        type: string
+      year:
+        type: string
+    type: object

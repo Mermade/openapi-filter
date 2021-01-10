@@ -1,4 +1,10 @@
 {
     "version": 1.0,
-    "inverse": true
+    "flags": [
+        "x-visibility"
+    ],
+    "flagValues": [
+        "private",
+        "internal"
+    ]
 }
