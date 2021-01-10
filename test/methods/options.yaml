@@ -1,2 +1,3 @@
-methods: delete
+methods:
+    - delete
 
