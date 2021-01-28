@@ -49,17 +49,24 @@ let argv = require('yargs')
     .describe('maxAliasCount','maximum YAML aliases allowed')
     .alias('configFile', 'c')
     .describe('configFile', 'The file & path for the filter options')
-    .boolean('verbose')
-    .describe('verbose', 'Output more details of the filter process')
+    .count('verbose')
+    .describe('verbose', 'Output more details of the filter process.')
     .help()
     .version()
     .argv;
 
-if (argv.verbose) console.warn('=== Document filtering started ===','\n')
+// Helper function to display info message, depending on the verbose level
+function INFO(msg) {
+    if (argv.verbose >= 1) {
+        console.warn(msg)
+    }
+}
+
+INFO('=== Document filtering started ===\n')
 
 // apply options from config file if present
 if (argv && argv.configFile) {
-    if (argv.verbose) console.warn('CONFIG File:  ' + argv.configFile)
+    INFO('CONFIG File:  ' + argv.configFile)
     try {
         let configFileOptions = {}
         if (argv.configFile.indexOf('.json')>=0) {
@@ -72,7 +79,8 @@ if (argv && argv.configFile) {
         console.error(err)
     }
 }
-if (argv.verbose) console.warn('IN File:      ' + argv.infile)
+
+INFO('IN File:      ' + argv.infile)
 
 let s = fs.readFileSync(argv.infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
@@ -87,10 +95,11 @@ else {
 if (argv.outfile) {
     fs.writeFileSync(argv.outfile,s,'utf8');
 
-    if (argv.verbose) console.warn('OUT File:     ' + argv.outfile)
+    INFO('OUT File:     ' + argv.outfile)
 }
 else {
     console.log(s);
 }
-if (argv.verbose) console.warn('\n','✅ Document was filtered successfully!')
+
+INFO('\n✅ Document was filtered successfully!')
 
