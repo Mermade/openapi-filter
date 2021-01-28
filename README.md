@@ -45,7 +45,7 @@ Options:
   --maxAliasCount  maximum YAML aliases allowed          [number] [default: 100]
   --configFile     The file & path for the filter options                 [path]
   --help           Show help                                           [boolean]
-  --verbose        Output more details of the filter process           [boolean]
+  --verbose        Output more details of the filter process             [count]
 ```
 
 use `--` to separate flags or other array options from following options, i.e.:
