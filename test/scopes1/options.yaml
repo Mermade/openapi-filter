@@ -1,0 +1,2 @@
+flags: [ 'write:pets' ]
+checkScopes: true
