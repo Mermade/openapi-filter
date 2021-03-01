@@ -56,17 +56,17 @@ let argv = require('yargs')
     .argv;
 
 // Helper function to display info message, depending on the verbose level
-function INFO(msg) {
+function info(msg) {
     if (argv.verbose >= 1) {
-        console.warn(msg)
+        console.warn(msg);
     }
 }
 
-INFO('=== Document filtering started ===\n')
+info('=== Document filtering started ===\n')
 
 // apply options from config file if present
 if (argv && argv.configFile) {
-    INFO('CONFIG File:  ' + argv.configFile)
+    info('Config File: ' + argv.configFile)
     try {
         let configFileOptions = {}
         if (argv.configFile.indexOf('.json')>=0) {
@@ -80,7 +80,7 @@ if (argv && argv.configFile) {
     }
 }
 
-INFO('IN File:      ' + argv.infile)
+info('Input file: ' + argv.infile)
 
 let s = fs.readFileSync(argv.infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
@@ -95,11 +95,11 @@ else {
 if (argv.outfile) {
     fs.writeFileSync(argv.outfile,s,'utf8');
 
-    INFO('OUT File:     ' + argv.outfile)
+    info('Output file: ' + argv.outfile)
 }
 else {
     console.log(s);
 }
 
-INFO('\n✅ Document was filtered successfully!')
+info('\n✅ Document was filtered successfully')
 
