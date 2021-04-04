@@ -20,7 +20,7 @@ paths:
       ...
 ```
 
-Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI definitions.
+Works with OpenAPI/Swagger 2.0 and 3.x and AsyncAPI definitions.
 
 ```
 openapi-filter.js <infile> [outfile]
@@ -37,15 +37,17 @@ Options:
   --flagValues, -v      flag String values to match             [array] [default: []]
   --checkTags           filter if flags given in --flags are in the tags array
                                                                        [boolean]
-  --overrides, -o       prefixes used to override named properties[arr] [default: []]
+  --overrides, -o  prefixes used to override named properties[arr] [default: []]
   --methods, -m         OpenAPI methods to filter by            [array] [default: []]
   --operationIds, -id   OpenAPI operationIds to filter by       [array] [default: []]
-  --valid               try to ensure inverse output is valid               [boolean]
-  --strip, -s           strip the flags from the finished product           [boolean]
-  --servers             include complete servers object with --valid        [boolean]
-  --lineWidth, -l       max line width of yaml output          [number] [default: -1]
-  --maxAliasCount       maximum YAML aliases allowed          [number] [default: 100]
-  --help                Show help                                           [boolean]
+  --valid          try to ensure inverse output is valid               [boolean]
+  --strip, -s      strip the flags from the finished product           [boolean]
+  --servers        include complete servers object with --valid        [boolean]
+  --lineWidth, -l  max line width of yaml output          [number] [default: -1]
+  --maxAliasCount  maximum YAML aliases allowed          [number] [default: 100]
+  --configFile     The file & path for the filter options                 [path]
+  --help           Show help                                           [boolean]
+  --verbose        Output more details of the filter process             [count]
 ```
 
 use `--` to separate flags or other array options from following options, i.e.:

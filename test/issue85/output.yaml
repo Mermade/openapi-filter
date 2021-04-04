@@ -1,0 +1,17 @@
+openapi: 3.0.0
+info:
+  title: API
+  version: 1.0.0
+paths:
+  /test:
+    post:
+      parameters:
+        - $ref: '#/components/parameters/ExternalHeader'
+
+components:
+  parameters:
+    ExternalHeader:
+      in: header
+      name: X-External-Header
+      schema:
+        type: string

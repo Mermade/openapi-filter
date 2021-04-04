@@ -114,9 +114,12 @@ function filter(obj,options) {
     });
 
     recurse(src,{},function(obj,key,state){
-        if (obj.hasOwnProperty('$ref') && filteredpaths.includes(obj.$ref)) {
-            if (Array.isArray(state.parent)) {
-                state.parent.splice(state.pkey, 1);
+        if (Array.isArray(obj) && obj.length > 0) {
+            for (let idx = 0; idx < obj.length; idx++) {
+                if (obj[idx] && obj[idx].hasOwnProperty('$ref') && filteredpaths.includes(obj[idx].$ref)) {
+                    obj.splice(idx, 1);
+                    idx--;
+                }
             }
         }
     });
