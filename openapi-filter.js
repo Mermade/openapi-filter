@@ -35,6 +35,14 @@ let argv = require('yargs')
     .alias('overrides','o')
     .default('overrides', [])
     .describe('overrides', 'prefixes used to override named properties')
+    .array('methods')
+    .alias('methods', 'm')
+    .describe('methods', 'OpenAPI methods to filter by')
+    .default('methods', [])
+    .array('operationIds')
+    .alias('operationIds', 'id')
+    .describe('operationIds', 'OpenAPI operationIds to filter by')
+    .default('operationIds', [])
     .boolean('valid')
     .describe('valid', 'try to ensure inverse output is valid')
     .boolean('strip')
@@ -102,4 +110,3 @@ else {
 }
 
 info('\n✅ Document was filtered successfully')
-
