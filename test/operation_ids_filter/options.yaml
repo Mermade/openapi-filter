@@ -1,0 +1,7 @@
+inverse: true
+valid: true
+flags:
+    - operationId
+flagValues:
+    - get_comics_by_id
+    - get_current_comic
