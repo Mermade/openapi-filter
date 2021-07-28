@@ -1,0 +1,17 @@
+openapi: 3.1.0
+info:
+  title: API
+  version: 1.0.0
+components:
+  responses:
+    ok:
+      description: OK
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              public:
+                type: string
+            required:
+              - public
