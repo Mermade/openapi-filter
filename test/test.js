@@ -33,15 +33,11 @@ tests.forEach((test) => {
                 }
             }
 
-            if (options.maxAliasCount) {
-                yaml.defaultOptions.maxAliasCount = options.maxAliasCount;
-            }
-
-            const input = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'input.yaml'),'utf8'), {schema:'core'});
+            const input = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'input.yaml'),'utf8'), {schema:'core', maxAliasCount: options.maxAliasCount });
             let readOutput = false;
             let output = {};
             try {
-              output = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'output.yaml'),'utf8'), {schema:'core'});
+              output = yaml.parse(fs.readFileSync(path.join(__dirname, test, 'output.yaml'),'utf8'), {schema:'core', maxAliasCount: options.maxAliasCount });
               readOutput = true;
             }
             catch (ex) {}
