@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: API
+  version: 1.0.0
+paths:
+  /test:
+    post:
+      parameters:
+        - $ref: '#/components/parameters/InternalHeader'
+        - $ref: '#/components/parameters/SecondInternalHeader'
+        - $ref: '#/components/parameters/ExternalHeader'
+        - $ref: '#/components/parameters/ThirdInternalHeader'
+
+components:
+  parameters:
+    InternalHeader:
+      x-internal: true
+      in: header
+      name: X-Internal-Header
+      schema:
+        type: string
+    SecondInternalHeader:
+      x-internal: true
+      in: header
+      name: X-Second-Internal-Header
+      schema:
+        type: string
+    ThirdInternalHeader:
+      x-internal: true
+      in: header
+      name: X-Third-Internal-Header
+      schema:
+        type: string
+    ExternalHeader:
+      in: header
+      name: X-External-Header
+      schema:
+        type: string

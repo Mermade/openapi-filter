@@ -1,0 +1,10 @@
+{
+    "version": 1.0,
+    "flags": [
+        "x-visibility"
+    ],
+    "flagValues": [
+        "private",
+        "internal"
+    ]
+}

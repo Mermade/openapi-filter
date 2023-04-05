@@ -50,6 +50,10 @@ let argv = require('yargs')
     .number('maxAliasCount')
     .default('maxAliasCount',100)
     .describe('maxAliasCount','maximum YAML aliases allowed')
+    .alias('configFile', 'c')
+    .describe('configFile', 'The file & path for the filter options')
+    .count('verbose')
+    .describe('verbose', 'Output more details of the filter process.')
     .help()
     .version()
     .argv;
@@ -59,6 +63,33 @@ if(argv.scopes) {
     argv.flags = argv.scopes;
     argv.checkScopes = true;
 }
+
+// Helper function to display info message, depending on the verbose level
+function info(msg) {
+    if (argv.verbose >= 1) {
+        console.warn(msg);
+    }
+}
+
+info('=== Document filtering started ===\n')
+
+// apply options from config file if present
+if (argv && argv.configFile) {
+    info('Config File: ' + argv.configFile)
+    try {
+        let configFileOptions = {}
+        if (argv.configFile.indexOf('.json')>=0) {
+            configFileOptions = JSON.parse(fs.readFileSync(argv.configFile, 'utf8'));
+        } else {
+            configFileOptions = yaml.parse(fs.readFileSync(argv.configFile, 'utf8'), {schema:'core'});
+        }
+        argv = Object.assign({}, argv, configFileOptions);
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+info('Input file: ' + argv.infile)
 
 let s = fs.readFileSync(argv.infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
@@ -115,7 +146,6 @@ Object.keys(oasSpec.components.schemas).forEach((key, ndx, keys) => {
     }
 });
 
-
 // Now check for tags...
 let usedTagNames = []
 let checkTags = (obj, key, state) => {
@@ -150,8 +180,11 @@ else {
 }
 if (argv.outfile) {
     fs.writeFileSync(argv.outfile,s,'utf8');
+
+    info('Output file: ' + argv.outfile)
 }
 else {
     console.log(s);
 }
 
+info('\n✅ Document was filtered successfully')

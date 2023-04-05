@@ -1,23 +1,23 @@
 {
   "name": "openapi-filter",
-  "version": "3.1.0",
+  "version": "3.2.1",
   "description": "Filter internal paths, operations, parameters, schemas etc from OpenAPI/Swagger definitions",
   "main": "index.js",
   "bin": "openapi-filter.js",
   "scripts": {
-    "lint": "npx eslint *.js",
+    "lint": "npx eslint *.js test/*.js",
     "test": "npx mocha"
   },
   "author": "Mike Ralphson",
   "license": "BSD-3-Clause",
   "dependencies": {
     "reftools": "^1.1.1",
-    "yaml": "^1.9.2",
-    "yargs": "^12.0.5"
+    "yaml": "^2.2.1",
+    "yargs": "^17.7.1"
   },
   "devDependencies": {
-    "eslint": "^7.2.0",
-    "mocha": "^8.0.1"
+    "eslint": "^8.37.0",
+    "mocha": "^10.2.0"
   },
   "repository": {
     "type": "git",
