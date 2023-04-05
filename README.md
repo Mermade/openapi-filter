@@ -35,6 +35,8 @@ Options:
   --inverse, -i    output filtered elements only                       [boolean]
   --flags, -f      flags to filter by          [array] [default: ["x-internal"]]
   --flagValues, -v flag String values to match             [array] [default: []]
+  --scopes          filter based upon oauth security scheme scopes, instead of
+                    'x-internal' flags                                   [array]
   --checkTags      filter if flags given in --flags are in the tags array
                                                                        [boolean]
   --overrides, -o  prefixes used to override named properties[arr] [default: []]
@@ -51,6 +53,12 @@ Options:
 use `--` to separate flags or other array options from following options, i.e.:
 
 `openapi-filter --flags x-private x-hidden -- source.yaml target.yaml`
+
+or
+
+`openapi-filter --flags x-private x-hidden -- source.yaml target.json`
+
+for the target to be written as a JSON file
 
 or
 
