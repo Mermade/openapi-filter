@@ -12,7 +12,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "reftools": "^1.1.1",
-    "yaml": "^2.2.1",
+    "yaml": "2.2",
     "yargs": "^17.7.1"
   },
   "devDependencies": {

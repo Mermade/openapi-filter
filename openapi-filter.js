@@ -4,7 +4,6 @@
 
 const fs = require('fs');
 const yaml = require('yaml');
-const {strOptions} = require('yaml/types');
 const openapiFilter = require('./index.js');
 
 let argv = require('yargs')
@@ -43,7 +42,7 @@ let argv = require('yargs')
     .number('lineWidth')
     .alias('lineWidth','l')
     .describe('lineWidth','max line width of yaml output')
-    .default('lineWidth',-1)
+    .default('lineWidth',0)
     .number('maxAliasCount')
     .default('maxAliasCount',100)
     .describe('maxAliasCount','maximum YAML aliases allowed')
@@ -89,8 +88,7 @@ if (argv.infile.indexOf('.json')>=0) {
     s = JSON.stringify(res,null,2);
 }
 else {
-    strOptions.fold.lineWidth = argv.lineWidth;
-    s = yaml.stringify(res);
+    s = yaml.stringify(res, {lineWidth: argv.lineWidth});
 }
 if (argv.outfile) {
     fs.writeFileSync(argv.outfile,s,'utf8');
