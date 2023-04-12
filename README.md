@@ -41,7 +41,7 @@ Options:
   --valid          try to ensure inverse output is valid               [boolean]
   --strip, -s      strip the flags from the finished product           [boolean]
   --servers        include complete servers object with --valid        [boolean]
-  --lineWidth, -l  max line width of yaml output          [number] [default: -1]
+  --lineWidth, -l  max line width of yaml output           [number] [default: 0]
   --maxAliasCount  maximum YAML aliases allowed          [number] [default: 100]
   --configFile     The file & path for the filter options                 [path]
   --help           Show help                                           [boolean]
