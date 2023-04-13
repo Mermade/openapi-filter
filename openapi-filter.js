@@ -7,11 +7,8 @@ const yaml = require('yaml');
 const openapiFilter = require('./index.js');
 
 let argv = require('yargs')
-    .usage('$0 <infile> [outfile]',false,(yargs) => {
-      yargs
-        .positional('infile',{ describe: 'the input file' })
-        .positional('outfile',{ describe: 'the output file' })
-    })
+    .usage('$0 <infile> [outfile]')
+    .demand(1)
     .strict()
     .boolean('info')
     .describe('info','include complete info object with --valid')
@@ -79,21 +76,23 @@ if (argv && argv.configFile) {
     }
 }
 
-info('Input file: ' + argv.infile)
+const infile = argv._[0];
+const outfile = argv._[1];
+info('Input file: ' + infile)
 
-let s = fs.readFileSync(argv.infile,'utf8');
+let s = fs.readFileSync(infile,'utf8');
 let obj = yaml.parse(s, {maxAliasCount: argv.maxAliasCount});
 let res = openapiFilter.filter(obj,argv);
-if (argv.infile.indexOf('.json')>=0) {
+if (infile.indexOf('.json')>=0) {
     s = JSON.stringify(res,null,2);
 }
 else {
     s = yaml.stringify(res, {lineWidth: argv.lineWidth});
 }
-if (argv.outfile) {
-    fs.writeFileSync(argv.outfile,s,'utf8');
+if (outfile) {
+    fs.writeFileSync(outfile,s,'utf8');
 
-    info('Output file: ' + argv.outfile)
+    info('Output file: ' + outfile)
 }
 else {
     console.log(s);

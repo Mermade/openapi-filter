@@ -85,6 +85,7 @@ function filter(obj,options) {
         let checkForReferences = true;
 
         while (checkForReferences) {
+            checkForReferences = false;
             let changesMade = false;
 
             recurse(filtered, {}, function (o, key, state) {
