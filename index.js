@@ -9,6 +9,8 @@ function filter(obj,options) {
     const defaults = {};
     defaults.flags = ['x-internal'];
     defaults.flagValues = [];
+    defaults.methods = [];
+    defaults.operationIds = [];
     defaults.checkTags = false;
     defaults.inverse = false;
     defaults.strip = false;
@@ -48,6 +50,55 @@ function filter(obj,options) {
                 }
                 filteredpaths.push(state.path);
                 delete obj[key];
+                break;
+            }
+        }
+
+        for (let method of options.methods) {
+            if (key === method) {
+                if (options.inverse) {
+                    if (Array.isArray(obj)) {
+                        // we need to seed the presence of an empty array
+                        // otherwise jptr won't know whether it's setting
+                        // an array entry or a property with a numeric key #26
+                        const components = state.path.split('/');
+                        components.pop(); // throw away last item
+                        if (jptr(filtered,components.join('/')) === false) {
+                            jptr(filtered,components.join('/'),[]);
+                        }
+                    }
+                    jptr(filtered,state.path,clone(obj[key]));
+                }
+                filteredpaths.push(state.path);
+                delete obj[key];
+                break;
+            }
+        }
+
+        for (let operationId of options.operationIds) {
+            if (obj[key] === operationId) {
+                if (options.inverse) {
+                    if (Array.isArray(obj)) {
+                        // we need to seed the presence of an empty array
+                        // otherwise jptr won't know whether it's setting
+                        // an array entry or a property with a numeric key #26
+                        const components = state.path.split('/');
+                        components.pop(); // throw away last item
+                        if (jptr(filtered,components.join('/')) === false) {
+                            jptr(filtered,components.join('/'),[]);
+                        }
+                    }
+                    jptr(filtered,state.path,clone(obj[key]));
+                }
+
+                // Recursed to a level too deep, so we go a level higher
+                const components = state.path.split('/');
+                components.pop(); // throw away last item
+                const parentstate = components.join('/')
+                filteredpaths.push(parentstate);
+
+                // Use the parent state object to remove the item attached to the parent state
+                delete state.parent[state.pkey];
                 break;
             }
         }

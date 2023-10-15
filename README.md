@@ -20,7 +20,7 @@ paths:
       ...
 ```
 
-Works with OpenAPI/Swagger 2.0 and 3.0.x and AsyncAPI definitions.
+Works with OpenAPI/Swagger 2.0 and 3.x and AsyncAPI definitions.
 
 ```
 openapi-filter.js <infile> [outfile]
@@ -31,13 +31,15 @@ Positionals:
 
 Options:
 
-  --info           include complete info object with --valid           [boolean]
-  --inverse, -i    output filtered elements only                       [boolean]
-  --flags, -f      flags to filter by          [array] [default: ["x-internal"]]
-  --flagValues, -v flag String values to match             [array] [default: []]
-  --checkTags      filter if flags given in --flags are in the tags array
+  --info                include complete info object with --valid           [boolean]
+  --inverse, -i         output filtered elements only                       [boolean]
+  --flags, -f           flags to filter by          [array] [default: ["x-internal"]]
+  --flagValues, -v      flag String values to match             [array] [default: []]
+  --checkTags           filter if flags given in --flags are in the tags array
                                                                        [boolean]
   --overrides, -o  prefixes used to override named properties[arr] [default: []]
+  --methods, -m         OpenAPI methods to filter by            [array] [default: []]
+  --operationIds, -id   OpenAPI operationIds to filter by       [array] [default: []]
   --valid          try to ensure inverse output is valid               [boolean]
   --strip, -s      strip the flags from the finished product           [boolean]
   --servers        include complete servers object with --valid        [boolean]
