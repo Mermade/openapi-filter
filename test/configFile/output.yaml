@@ -25,7 +25,7 @@ paths:
   /info.0.json:
     x-visibility: public
     get:
-      description: >
+      description: |
         Fetch current comic and metadata.
       parameters:
         - $ref: "#/definitions/comic"

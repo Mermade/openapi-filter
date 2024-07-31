@@ -3,6 +3,6 @@ info:
   title: API
   version: 1.0.0
 tags:
-  - "x-public": true
-    name: Tag 1
+  - name: Tag 1
+    x-public: true
 paths: {}

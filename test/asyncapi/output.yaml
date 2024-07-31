@@ -58,3 +58,4 @@ components:
       type: string
       format: date-time
       description: Date and time when the message was sent.
+  securitySchemes: {}

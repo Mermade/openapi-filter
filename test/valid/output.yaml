@@ -7,7 +7,7 @@ paths:
   "/{comicId}/info.0.json":
     x-internal: true
     get:
-      description: >
+      description: |
         Fetch comics and metadata by comic id.
       parameters:
         - in: path
@@ -51,3 +51,4 @@ definitions:
       year:
         type: string
     type: object
+securityDefinitions: {}

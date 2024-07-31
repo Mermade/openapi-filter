@@ -7,14 +7,14 @@ paths:
   "/{comicId}/info.0.json":
     x-internal: true
     get:
-      description: >
+      description: |
         Fetch comics and metadata by comic id.
       parameters:
         - in: path
           name: comicId
           required: true
           type: number
-        - $ref: '#/definitions/complex'
+        - $ref: "#/definitions/complex"
         - $ref: "#/definitions/hovertext"
       responses:
         "200":
@@ -27,6 +27,13 @@ definitions:
     properties:
       description:
         type: string
+  complex:
+    properties:
+      a69:
+        type: object
+        oneOf:
+          - $ref: "#/definitions/b1"
+          - $ref: "#/definitions/b2"
   comic:
     properties:
       alt:
@@ -52,15 +59,8 @@ definitions:
       year:
         type: string
       previous:
-        $ref: '#/definitions/comic'
+        $ref: "#/definitions/comic"
     type: object
-  complex:
-    properties:
-      a69:
-        type: object
-        oneOf:
-          - $ref: '#/definitions/b1'
-          - $ref: '#/definitions/b2'
   b1:
     properties:
       ab:
@@ -70,8 +70,9 @@ definitions:
       ac:
         type: object
         oneOf:
-          - $ref: '#/definitions/c1'
+          - $ref: "#/definitions/c1"
   c1:
     properties:
       ab:
         type: string
+securityDefinitions: {}

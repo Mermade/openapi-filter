@@ -6,8 +6,7 @@ paths:
   /test:
     post:
       parameters:
-        - $ref: '#/components/parameters/ExternalHeader'
-
+        - $ref: "#/components/parameters/ExternalHeader"
 components:
   parameters:
     ExternalHeader:
